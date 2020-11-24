@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PersonalFinancePlanner</string>
+
+    <!--Starting Page Strings-->
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="app_title">Midas</string>
+    <string name="slogan">Budgeting Made Golden</string>
+
+    <!-- Sign Up Activity Strings -->
+    <string name="signup_header">Sign Up</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+
 </resources>

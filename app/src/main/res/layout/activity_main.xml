@@ -6,14 +6,99 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Yellow Bubble -->
+    <View
+        android:id="@+id/yellow_bubble"
+        android:layout_width="370dp"
+        android:layout_height="296dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/yellow_bubble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Blue Bubble -->
+    <View
+        android:id="@+id/blue_bubble"
+        android:layout_width="316.36dp"
+        android:layout_height="316.36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="310dp"
+        android:background="@drawable/blue_bubble"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Red Bubble -->
+    <View
+        android:id="@+id/red_bubble"
+        android:layout_width="166dp"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="245dp"
+        android:layout_marginBottom="381dp"
+        android:background="@drawable/red_bubble"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Centered App Title -->
     <TextView
-        android:id="@+id/sample_text"
+        android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:fontFamily="@font/biorhyme_extrabold"
+        android:text="@string/app_title"
+        android:textColor="#434343"
+        android:textSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Buttons -->
+
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="167dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="33dp"
+        android:layout_toStartOf="@+id/sign_up_button"
+        android:background="@drawable/button_border"
+        android:text="@string/sign_in"
+        android:textColor="#000000"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sign_up_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="167dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="33dp"
+        android:layout_toEndOf="@+id/sign_in_button"
+        android:text="@string/sign_up"
+        app:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="130dp"
+        android:fontFamily="@font/biorhyme"
+        android:text="@string/slogan"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_title"
+        app:layout_constraintVertical_bias="0.544" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
