@@ -42,4 +42,8 @@
         <item>What was the name of your favorite childhood pet?</item>
     </string-array>
 
+    <!-- Login Page Strings -->
+    <string name="login_header">Log in</string>
+    <string name="login_email">Email:</string>
+    <string name="login_login">Log In</string>
 </resources>
