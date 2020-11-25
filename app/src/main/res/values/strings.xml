@@ -3,13 +3,43 @@
 
     <!--Starting Page Strings-->
     <string name="sign_in">Sign In</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="next">Next</string>
     <string name="app_title">Midas</string>
     <string name="slogan">Budgeting Made Golden</string>
 
-    <!-- Sign Up Activity Strings -->
-    <string name="signup_header">Sign Up</string>
-    <string name="prompt_email">Email</string>
+    <!-- Account Creation Activity Strings -->
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
+    <string name="security_answer_one">Answer 1</string>
+    <string name="security_answer_two">Answer 2</string>
+
+    <!-- Error Messages -->
+    <string name="error_message">Please fill out all fields!</string>
+
+    <!-- Dropdown Selection Strings -->
+    <string-array name="securityQuestionOneChoices">
+        <item>Please select a security question.</item>
+        <item>What was your childhood nickname?</item>
+        <item>In what city did you meet your spouse/significant other?</item>
+        <item>What is the name of your favorite childhood friend?</item>
+        <item>What street did you live on in third grade?</item>
+        <item>What is your oldest sibling\’s birthday month and year? (e.g., January 1900)</item>
+        <item>What is the middle name of your youngest child?</item>
+        <item>What is your oldest sibling\'s middle name?</item>
+        <item>What school did you attend for sixth grade?</item>
+    </string-array>
+
+    <string-array name="securityQuestionTwoChoices">
+        <item>Please select a security question.</item>
+        <item>What is the name of the company of your first job?</item>
+        <item>What is your mother\'s maiden name?</item>
+        <item>What is the street number of the house you grew up in?</item>
+        <item>What was the first concert you attended?</item>
+        <item>What is your grandmother\'s first name?</item>
+        <item>What was the make and model of your first car?</item>
+        <item>What was your high school mascot?</item>
+        <item>What was the name of your favorite childhood pet?</item>
+    </string-array>
 
 </resources>

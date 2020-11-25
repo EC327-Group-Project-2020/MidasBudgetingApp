@@ -60,28 +60,28 @@
 
     <Button
         android:id="@+id/sign_in_button"
-        android:layout_width="167dp"
+        android:layout_width="170dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="33dp"
-        android:layout_toStartOf="@+id/sign_up_button"
+        android:layout_toStartOf="@+id/create_account_button"
         android:background="@drawable/button_border"
         android:text="@string/sign_in"
         android:textColor="#000000"
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sign_up_button"
+        app:layout_constraintEnd_toStartOf="@+id/create_account_button"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="167dp"
+        android:id="@+id/create_account_button"
+        android:layout_width="170dp"
         android:layout_height="52dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="33dp"
         android:layout_toEndOf="@+id/sign_in_button"
-        android:text="@string/sign_up"
+        android:text="@string/create_account"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
