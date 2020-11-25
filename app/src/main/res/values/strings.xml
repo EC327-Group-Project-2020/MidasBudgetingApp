@@ -12,4 +12,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
 
+    <!-- Login Page Strings -->
+    <string name="login_header">Log in</string>
+    <string name="login_email">Email:</string>
+    <string name="login_login">Log In</string>
 </resources>
