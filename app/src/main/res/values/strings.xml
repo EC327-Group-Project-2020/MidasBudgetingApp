@@ -43,7 +43,4 @@
     </string-array>
 
     <!-- Login Page Strings -->
-    <string name="login_header">Log in</string>
-    <string name="login_email">Email:</string>
-    <string name="login_login">Log In</string>
 </resources>
