@@ -1,17 +1,41 @@
 package com.example.personalfinanceplanner;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Fts4;
+
+@Fts4 //support full table search
+@Entity(tableName = "user_info")
 public class User {
 
-    //data fields
+    @NonNull
+    @ColumnInfo(name = "username")
     private String username;
+
+    @NonNull
+    @ColumnInfo(name = "password")
     private String password;
+
+    @NonNull
+    @ColumnInfo(name = "security_question_one")
     private String securityQuestionOne;
+
+    @NonNull
+    @ColumnInfo(name = "security_question_two")
     private String securityQuestionTwo;
+
+    @NonNull
+    @ColumnInfo(name = "security_answer_one")
     private String securityAnswerOne;
+
+    @NonNull
+    @ColumnInfo(name = "security_answer_two")
     private String securityAnswerTwo;
 
     //constructor
-    public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo) {
+    public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo)
+    {
         this.username = username;
         this.password = password;
         this.securityQuestionOne = securityQuestionOne;
@@ -20,7 +44,11 @@ public class User {
         this.securityAnswerTwo = securityAnswerTwo;
     }
 
-    //member functions
+    /*NOTE: getter and setter names below should NOT be altered. In order to keep
+    the data fields private in the user class and still allow Room to access them, the getters and
+    setters must obey JavaBeans conventions for naming getters and setters for each data field, which
+    is reflected in the names chosen for those member functions
+     */
 
     public void setUsername(String new_name) {
         username = new_name;
@@ -34,7 +62,9 @@ public class User {
         password = new_password;
     }
 
-    //no getPassword function because no retrievals should be allowed; passwords can only be reset
+    public String getPassword(){
+        return password;
+    }
 
     public void setSecurityQuestionOne(String newQuestionOne) {
         securityQuestionOne = newQuestionOne;
