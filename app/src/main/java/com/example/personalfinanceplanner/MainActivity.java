@@ -1,8 +1,13 @@
 package com.example.personalfinanceplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.loadLibrary("native-lib");
     }
 
-    //Creating the EditText objects for account creation page
-
     //Creating Button
     private Button signInButton;
     private Button signUpButton;
+
+    private dbViewModel accessDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //set on click listeners for the sign in and sign up buttons
         signInButton.setOnClickListener(this);
         signUpButton.setOnClickListener(this);
+
+        accessDatabase = new dbViewModel(getApplication());
     }
 
     @Override
