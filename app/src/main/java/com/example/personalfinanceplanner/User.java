@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Fts4;
+import androidx.room.PrimaryKey;
 
-@Fts4 //support full table search
 @Entity(tableName = "user_info")
 public class User {
+
+    @PrimaryKey(autoGenerate = true)
+    public long userID;
 
     @NonNull
     @ColumnInfo(name = "username")
@@ -33,8 +36,11 @@ public class User {
     @ColumnInfo(name = "security_answer_two")
     private String securityAnswerTwo;
 
+    @ColumnInfo(name = "alternate_currency")
+    private String alternateCurrency;
+
     //constructor
-    public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo)
+    public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo, String alternateCurrency)
     {
         this.username = username;
         this.password = password;
@@ -42,6 +48,7 @@ public class User {
         this.securityQuestionTwo = securityQuestionTwo;
         this.securityAnswerOne = securityAnswerOne;
         this.securityAnswerTwo = securityAnswerTwo;
+        this.alternateCurrency = alternateCurrency;
     }
 
     /*NOTE: getter and setter names below should NOT be altered. In order to keep
@@ -97,4 +104,8 @@ public class User {
     public String getSecurityAnswerTwo() {
         return securityAnswerTwo;
     }
+
+    public void setAlternateCurrency(String newAlternateCurrency) { alternateCurrency = newAlternateCurrency; }
+
+    public String getAlternateCurrency() { return alternateCurrency; }
 }

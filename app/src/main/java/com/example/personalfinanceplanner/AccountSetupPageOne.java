@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 public class AccountSetupPageOne extends AppCompatActivity implements View.OnClickListener {
 
-    //Create ViewModel for read/write capabilities for database
-    //private dbViewModel dbAccessor;
-
     //Creating the EditText objects for account creation page
     private EditText username_entry;
     private EditText password_entry;
@@ -30,7 +27,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
     private Spinner questionOneList;
     private Spinner questionTwoList;
 
-    //private AppDatabase appDatabase;
+    //Create ViewModel for read/write capabilities to database
     private dbViewModel accessDatabase;
 
     @Override
@@ -39,7 +36,6 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation_page1);
 
-        //appDatabase = AppDatabase.getDatabase(this);
         accessDatabase = new dbViewModel(getApplication());
 
         next_button = (Button) findViewById(R.id.next_button);
@@ -96,7 +92,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
                                               String questionTwoChoice, String answerTwoInput) {
 
         //create User Entity to be stored in the database
-        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput);
+        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput, null);
 
         //store user in Room Database via dbViewModel methods
         accessDatabase.insert(createdUser);

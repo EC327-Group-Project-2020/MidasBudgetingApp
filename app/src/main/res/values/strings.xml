@@ -46,4 +46,5 @@
     <string name="login_header">Log in</string>
     <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
+    <string name="incorrect_login_creds">Username or Password Incorrect</string>
 </resources>
