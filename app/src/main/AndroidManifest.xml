@@ -3,6 +3,7 @@
     package="com.example.personalfinanceplanner">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AccountSetupPageOne"></activity>
+        <activity android:name=".BudgetDisplayPage" android:exported="true"></activity>
     </application>
-
 </manifest>

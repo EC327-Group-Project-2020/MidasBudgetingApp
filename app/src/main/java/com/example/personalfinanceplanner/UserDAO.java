@@ -34,5 +34,4 @@ public interface UserDAO {
     @Query("DELETE FROM user_info") //empties the user table
     void deleteAll();
     //add more queries here based on the information that needs to be searched and returned; must return LiveData for UI to update
-
 }
