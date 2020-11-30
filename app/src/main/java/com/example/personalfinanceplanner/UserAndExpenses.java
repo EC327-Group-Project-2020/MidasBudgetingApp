@@ -1,6 +1,5 @@
 package com.example.personalfinanceplanner;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 import java.util.List;

@@ -82,8 +82,6 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        //ALSO NEED TO VERIFY THAT THE USERNAME IS NOT TAKEN ON THE DEVICE ALREADY
-
         //launch into second page of account setup if all fields have been filled as required
         launchAccountSetupPageTwo(usernameInput, passwordInput, questionOneChoice, answerOneInput, questionTwoChoice, answerTwoInput);
     }
@@ -92,7 +90,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
                                               String questionTwoChoice, String answerTwoInput) {
 
         //create User Entity to be stored in the database
-        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput, null);
+        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput);
 
         //store user in Room Database via dbViewModel methods
         accessDatabase.insert(createdUser);

@@ -67,6 +67,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         else
         {
             User queriedUser = queriedUserList.get(0);
+            System.out.println(queriedUserList.get(0).getUsername());
             String passwordOnRecord = queriedUser.getPassword();
 
             if (!passwordOnRecord.equals(passwordInput))
@@ -78,14 +79,16 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
 
-        launchUserDashboardPage();
+        launchBudgetDisplayPage(queriedUserList.get(0));
     }
 
-    private void launchUserDashboardPage() {
+    private void launchBudgetDisplayPage(User validUser) {
 
-        Intent setupUserDashboardPage = new Intent(LogInActivity.this, MainActivity.class); //need to change this from Main to actual dashboard page
+
+        Intent setupBudgetDisplayPage = new Intent(LogInActivity.this, BudgetDisplayPage.class);
+        setupBudgetDisplayPage.putExtra("valid_user", validUser);
 
         //Launch second page of account setup
-        startActivity(setupUserDashboardPage);
+        startActivity(setupBudgetDisplayPage);
     }
 }
