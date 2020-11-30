@@ -51,32 +51,34 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/log_in_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.875"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.063" />
 
     <EditText
         android:id="@+id/loginUsername"
-        android:layout_width="243dp"
+        android:layout_width="300dp"
         android:layout_height="52dp"
         android:layout_marginStart="122dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="122dp"
+        android:layout_marginBottom="8dp"
         android:autofillHints="email"
         android:background="@drawable/button_border"
         android:hint="@string/prompt_username"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:selectAllOnFocus="true"
         android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@id/loginPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.883" />
 
     <EditText
         android:id="@+id/loginPassword"
-        android:layout_width="243dp"
+        android:layout_width="300dp"
         android:layout_height="52dp"
         android:layout_marginStart="122dp"
         android:layout_marginTop="95dp"
@@ -90,10 +92,10 @@
         android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@+id/log_in_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.517" />
 
     <Button
         android:id="@+id/log_in_button"
@@ -101,7 +103,7 @@
         android:layout_height="52dp"
         android:layout_marginStart="122dp"
         android:layout_marginEnd="122dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginBottom="176dp"
         android:text="@string/login_login"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"

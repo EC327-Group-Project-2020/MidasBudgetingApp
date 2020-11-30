@@ -3,11 +3,17 @@ package com.example.personalfinanceplanner;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Fts4;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-@Fts4 //support full table search
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @Entity(tableName = "user_info")
-public class User {
+public class User implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    public long userID;
 
     @NonNull
     @ColumnInfo(name = "username")
@@ -33,6 +39,11 @@ public class User {
     @ColumnInfo(name = "security_answer_two")
     private String securityAnswerTwo;
 
+    @NonNull
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = "saved_currency_list")
+    private ArrayList<String> savedCurrencies = new ArrayList<String>(); //creates empty resizeable array
+
     //constructor
     public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo)
     {
@@ -42,6 +53,19 @@ public class User {
         this.securityQuestionTwo = securityQuestionTwo;
         this.securityAnswerOne = securityAnswerOne;
         this.securityAnswerTwo = securityAnswerTwo;
+        this.savedCurrencies.add("USD");
+    }
+
+    //copy constructor
+    public User(User user)
+    {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.securityQuestionOne = user.getSecurityQuestionOne();
+        this.securityQuestionTwo = user.getSecurityQuestionTwo();
+        this.securityAnswerOne = user.getSecurityAnswerOne();
+        this.securityAnswerTwo = user.getSecurityAnswerTwo();
+        this.savedCurrencies = user.getSavedCurrencies();
     }
 
     /*NOTE: getter and setter names below should NOT be altered. In order to keep
@@ -50,6 +74,7 @@ public class User {
     is reflected in the names chosen for those member functions
      */
 
+    //accessors and mutators
     public void setUsername(String new_name) {
         username = new_name;
     }
@@ -97,4 +122,35 @@ public class User {
     public String getSecurityAnswerTwo() {
         return securityAnswerTwo;
     }
+
+    public void setSavedCurrencies(ArrayList<String> newSavedCurrency) { savedCurrencies = newSavedCurrency; }
+
+    public ArrayList<String> getSavedCurrencies() { return savedCurrencies; }
+
+    //other member functions
+
+    public void addSavedCurrency(String newCurrency) { //adds a new currency to the favorite list, and checks for duplicates
+
+        //check to make sure that currency hasn't already been added to list
+        for (int i = 0; i < savedCurrencies.size(); i++)
+        {
+            if (savedCurrencies.get(i).equals(newCurrency))
+            {
+                System.out.println("Error: currency type has already been added to saved list.");
+                return;
+            }
+        }
+
+        savedCurrencies.add(newCurrency);
+    }
+
+    public void removeSavedCurrency(String currencyToRemove) {  //removes specified saved currency, but does not allow "USD" to be removed
+        if (currencyToRemove.equals("USD"))
+        {
+            System.out.println("Error: cannot delete default currency.");
+        }
+        else
+            savedCurrencies.remove(currencyToRemove);
+    }
+
 }

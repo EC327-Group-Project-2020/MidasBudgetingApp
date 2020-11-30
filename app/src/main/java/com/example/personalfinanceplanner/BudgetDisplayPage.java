@@ -1,10 +1,12 @@
 package com.example.personalfinanceplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +20,12 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     //VARIABLES
     //debug tag for log
     private static final String TAG_DEBUG = BudgetDisplayPage.class.getName();
+
+    //create User to hold the user object passed from login
+    private User loggedInUser;
+
+    //declare dbViewModel for interaction with Database
+    private dbViewModel databaseAccessor;
 
     //dropdown with currencies
     private Spinner addCurrency;        //displays async retrieved names from online currency base
@@ -34,6 +42,10 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     final int CURRENCYNAME = 0;     //fx. firstCurrencyName = namesRates[0][CURRENCYNAME]
     final int CURRENCYRATE = 1;     //fx. firstCurrencyRATE = namesRates[0][CURRENCYRATE]
 
+    //declare "Add Expense" button
+    private Button addExpense;
+
+
 
     //ACTIONS
     @Override
@@ -44,7 +56,17 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         //msg to log
         Log.d(TAG_DEBUG, "Loading budget page!");
 
-        //<--------------CURRENCY FEATURE STARS HERE-------------->
+        //checks if correct user was passed from login and stores verification result
+        Bundle passedUser = getIntent().getExtras();
+
+        //assign user passed from login to the object loggedInUser CONSIDER REPLACING WITH TRY-CATCH BLOCK
+        if (passedUser != null) {
+            loggedInUser = (User) getIntent().getSerializableExtra("valid_user");
+        }
+        else
+            System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
+
+        //<--------------CURRENCY FEATURE STARTS HERE-------------->
         //connecting the spinner
         addCurrency = (Spinner) findViewById(R.id.currencyMenu);
 
@@ -65,6 +87,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 /* TODO Implement  FUNCTION THAT ADDS SELECTED CURRENCY TO USER IN DATABASE */
 
                 if(position != 0){
+
+                    //KEVIN TO CONNECT CURRENCY SELECTION TO DATABASE HERE
+
                     Toast.makeText(BudgetDisplayPage.this, "Currency added to your profile!", Toast.LENGTH_SHORT).show();
                 }
                 addCurrency.setSelection(0);
@@ -77,6 +102,14 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         });
 
         //<--------------CURRENCY FEATURE ENDS HERE-------------->
+
+
+        //<--------------EXPENSE ADDITION FEATURE STARTS HERE----->
+
+        addExpense = (Button) findViewById(R.id.addExpenseButton);
+        addExpense.setOnClickListener(this);
+
+        //need to be able to query a user for all expenses, for graphical display
 
         /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
     }

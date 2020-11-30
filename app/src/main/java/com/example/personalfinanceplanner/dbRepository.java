@@ -46,7 +46,12 @@ public class dbRepository {
                 mUserDao.deleteAll();
             });
         }
-}
 
-//Repositories are meant to mediate between different data sources. Since there is only one data source,
-//we may not need this, but good to have for scalability.
+        List<User> queryUser(String username) { //return non-Live version of given user for non-UI dependent data
+            return mUserDao.loadGivenUser(username);
+        }
+
+        LiveData<List<User>> queryUserLive(String username) { //return LiveData version of given user
+            return mUserDao.loadGivenUserLive(username);
+        }
+}

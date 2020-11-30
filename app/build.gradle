@@ -52,9 +52,6 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
 
-    // Dependencies for working with Architecture components
-    // You'll probably have to update the version numbers in build.gradle (Project)
-
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
@@ -76,4 +73,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+
+    // Object to JSON Representation Conversion
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

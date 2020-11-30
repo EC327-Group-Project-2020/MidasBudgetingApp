@@ -16,6 +16,8 @@
 
     <!-- Error Messages -->
     <string name="error_message">Please fill out all fields!</string>
+    <string name="add_duplicate_currency_error">Error: currency type has already been added to saved list.</string>
+    <string name="remove_USD_error_message">"Error: cannot delete default currency."</string>
 
     <!-- Dropdown Selection Strings -->
     <string-array name="securityQuestionOneChoices">
@@ -46,4 +48,6 @@
     <string name="login_header">Log in</string>
     <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
+    <string name="incorrect_login_creds">Username or Password Incorrect</string>
+
 </resources>
