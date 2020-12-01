@@ -15,6 +15,10 @@
     <string name="security_answer_two">Answer 2</string>
 
     <!-- Error Messages -->
+
+    <string name="user_fields_empty_error">Please fill out all fields!</string>
+    <string name="username_already_taken_error">Oops! That username is already taken</string>
+    <string name="incorrect_login_creds">Incorrect password or username!</string>
     <string name="error_message">Please fill out all fields!</string>
     <string name="add_duplicate_currency_error">Error: currency type has already been added to saved list.</string>
     <string name="remove_USD_error_message">"Error: cannot delete default currency."</string>
