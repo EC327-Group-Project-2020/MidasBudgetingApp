@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.sign_in_button:
             {
+                launchLogInActivity();
                 break;
             }
-            //INPUT OTHER CASES HERE TO CONTROL WHERE USER GOES BASED ON EXISTENCE OF ACCOUNTS, BUTTON PRESSED, ETC
         }
     }
 
@@ -68,6 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Launch first page of account setup
         startActivity(setupPageOneActivity);
+    }
+
+    private void launchLogInActivity()
+    {
+
+        Intent setupLogInPage = new Intent(MainActivity.this, LogInActivity.class);
+
+        //launch login page
+        startActivity(setupLogInPage);
     }
 
     /**
