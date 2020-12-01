@@ -67,17 +67,33 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        //if the username exists, check that the provided password matches that of the user object
+        else
+        {
+            User queriedUser = queriedUserList.get(0);
+            System.out.println(queriedUserList.get(0).getUsername());
+            String passwordOnRecord = queriedUser.getPassword();
+
+            if (!passwordOnRecord.equals(passwordInput))
+            {
+                Toast.makeText(LogInActivity.this, getResources().getString(R.string.incorrect_login_creds), Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
 
-        launchUserDashboardPage();
+        launchBudgetDisplayPage(queriedUserList.get(0));
     }
 
-    private void launchUserDashboardPage() {
+    private void launchBudgetDisplayPage(User validUser) {
 
-        Intent setupUserDashboardPage = new Intent(LogInActivity.this, MainActivity.class); //need to change this from Main to actual dashboard page
+
+        Intent setupBudgetDisplayPage = new Intent(LogInActivity.this, BudgetDisplayPage.class);
+        setupBudgetDisplayPage.putExtra("valid_user", validUser);
 
         //Launch second page of account setup
-        startActivity(setupUserDashboardPage);
+        startActivity(setupBudgetDisplayPage);
     }
 
     //FUNCTIONS TO TEST USER INPUT BEFORE ONCLICK ACTIVATES
@@ -89,12 +105,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         return false;
     }
 
-    public static Boolean badUserInfo(List<User> queriedUser, String passwordInput){       /*returns true if username doesn't exist or if username and password don't match*/
-        if(queriedUser.isEmpty()){
+    public static Boolean badUserInfo(List<User> queriedUserList, String passwordInput){       /*returns true if username doesn't exist or if username and password don't match*/
+        if(queriedUserList.isEmpty()){
             Log.d(TAG_DEBUG, "User doesn't exist.");
             return true;
         }
-        else if(!queriedUser.get(0).getPassword().equals(passwordInput)){
+        else if(!queriedUserList.get(0).getPassword().equals(passwordInput)){
             Log.d(TAG_DEBUG, "Password doesn't match user");
             return true;
         }

@@ -2,7 +2,6 @@ package com.example.personalfinanceplanner;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.List;
 
 public class AccountSetupPageOne extends AppCompatActivity implements View.OnClickListener {
@@ -105,7 +103,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
                                               String questionTwoChoice, String answerTwoInput) {
 
         //create User Entity to be stored in the database
-        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput, null);
+        User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput);
 
         //store user in Room Database via dbViewModel methods
         accessDatabase.insert(createdUser);

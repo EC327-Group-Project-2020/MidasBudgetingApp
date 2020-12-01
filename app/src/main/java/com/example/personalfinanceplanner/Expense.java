@@ -5,9 +5,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 //represents expenses the user creates
 @Entity(tableName = "expense_info")
-public class Expense {
+public class Expense implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public long expenseID;
