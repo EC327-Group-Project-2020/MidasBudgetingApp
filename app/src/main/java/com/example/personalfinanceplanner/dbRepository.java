@@ -21,11 +21,15 @@ public class dbRepository {
             return mAllUsers;
         }
 
-        // You must call this on a non-UI thread or your app will throw an exception. Room ensures
-        // that you're not doing any long running operations on the main thread, blocking the UI.
         void insert(User user) {
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 mUserDao.insertUser(user);
+            });
+        }
+
+        void insertExpense(Expense expense) {
+            AppDatabase.databaseWriteExecutor.execute(() -> {
+                mUserDao.insertExpense(expense);
             });
         }
 
@@ -53,5 +57,9 @@ public class dbRepository {
 
         LiveData<List<User>> queryUserLive(String username) { //return LiveData version of given user
             return mUserDao.loadGivenUserLive(username);
+        }
+
+        List<UserWithExpenses> getUserWithExpenses(long userID) { //returns the list of expenses for the user with given userID
+            return mUserDao.getUserWithExpenses(userID);
         }
 }

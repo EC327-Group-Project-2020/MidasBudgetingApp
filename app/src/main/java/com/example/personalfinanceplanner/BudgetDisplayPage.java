@@ -1,6 +1,6 @@
 package com.example.personalfinanceplanner;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class BudgetDisplayPage extends AppCompatActivity implements View.OnClickListener {
@@ -56,6 +57,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         //msg to log
         Log.d(TAG_DEBUG, "Loading budget page!");
 
+        //create ViewModel for accessing database
+        databaseAccessor = new dbViewModel(getApplication());
+
         //checks if correct user was passed from login and stores verification result
         Bundle passedUser = getIntent().getExtras();
 
@@ -84,12 +88,21 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                /* TODO Implement  FUNCTION THAT ADDS SELECTED CURRENCY TO USER IN DATABASE */
-
                 if(position != 0){
 
-                    //KEVIN TO CONNECT CURRENCY SELECTION TO DATABASE HERE
+                    String selectedCurrency = addCurrency.getSelectedItem().toString();
 
+                    for (int i = 0; i < loggedInUser.getSavedCurrencies().size(); i++) //checks to make sure the currency hasn't already been added to profile
+                    {
+                        if (loggedInUser.getSavedCurrencies().get(i).equals(selectedCurrency))
+                        {
+                            Toast.makeText(BudgetDisplayPage.this, "Currency has already been added", Toast.LENGTH_SHORT).show();
+                            return; //exits if the currency is already in the user's list
+                        }
+                    }
+
+                    loggedInUser.addSavedCurrency(selectedCurrency);
+                    databaseAccessor.update(loggedInUser);
                     Toast.makeText(BudgetDisplayPage.this, "Currency added to your profile!", Toast.LENGTH_SHORT).show();
                 }
                 addCurrency.setSelection(0);
@@ -108,16 +121,30 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         addExpense = (Button) findViewById(R.id.addExpenseButton);
         addExpense.setOnClickListener(this);
-
-        //need to be able to query a user for all expenses, for graphical display
-
-        /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
     }
 
-
     //if we want to click something
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
 
+        switch(v.getId())
+        {
+            case R.id.addExpenseButton:
+            {
+                //TEST VALUES ARE BEING USED AS PLACEHOLDERS - NEED TO ADD INTERFACE FOR FILLING IN EXPENSE INFO
+                Expense newExpense = new Expense(loggedInUser.getUserID(), OffsetDateTime.now(ZoneId.systemDefault()),100, "Household",
+                        "example/filelocation", null);
+                databaseAccessor.insertExpense(newExpense);
+                break;
+            }
+            //ADD MORE CASES HERE FOR DIFFERENT BUTTONS
+        }
     }
+
+    //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
+
+    /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
+
+    //need to be able to query a user for all expenses, for graphical display
 }
