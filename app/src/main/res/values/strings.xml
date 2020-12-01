@@ -15,7 +15,9 @@
     <string name="security_answer_two">Answer 2</string>
 
     <!-- Error Messages -->
-    <string name="error_message">Please fill out all fields!</string>
+    <string name="user_fields_empty_error">Please fill out all fields!</string>
+    <string name="username_already_taken_error">Oops! That username is already taken</string>
+    <string name="incorrect_login_creds">Incorrect password or username!</string>
 
     <!-- Dropdown Selection Strings -->
     <string-array name="securityQuestionOneChoices">
@@ -46,5 +48,4 @@
     <string name="login_header">Log in</string>
     <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
-    <string name="incorrect_login_creds">Username or Password Incorrect</string>
 </resources>
