@@ -2,7 +2,7 @@ package com.example.personalfinanceplanner;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +35,9 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
     //Create ViewModel for read/write capabilities to database
     private dbViewModel accessDatabase;
 
+    //Tag for username when passed on to next activity
+    public static final String TAG_USERNAME = "username from previous";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,7 +46,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
 
         accessDatabase = new dbViewModel(getApplication());
 
-        next_button = (Button) findViewById(R.id.next_button);
+        next_button = (Button) findViewById(R.id.finish_button);
 
         username_entry = (EditText) findViewById(R.id.username_field);
         password_entry = (EditText) findViewById(R.id.password);
@@ -108,7 +111,10 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         //store user in Room Database via dbViewModel methods
         accessDatabase.insert(createdUser);
 
-        Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, MainActivity.class); //need to change this from Main to actual second page
+        Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, AccountSetupPageTwo.class);
+
+        //username passed on to continue initialisation of user
+        setupPageTwoActivity.putExtra(TAG_USERNAME,usernameInput);
 
         //Launch second page of account setup
         startActivity(setupPageTwoActivity);

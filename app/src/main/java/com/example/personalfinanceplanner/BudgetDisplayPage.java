@@ -46,6 +46,8 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     //declare "Add Expense" button
     private Button addExpense;
 
+    //variable to store current currency rate
+    private Double currencyRate;
 
 
     //ACTIONS
@@ -112,6 +114,12 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
+
+            //edit spinner for currencies
+
+
+            //Assign variable rate to relevant currency
+
         });
 
         //<--------------CURRENCY FEATURE ENDS HERE-------------->
