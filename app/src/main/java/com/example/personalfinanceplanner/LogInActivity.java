@@ -30,6 +30,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     //declare ViewModel for read/write capabilities to database
     private dbViewModel accessDatabase;
 
+    //tag to pass on to next
+    public static final String TAG_USER_LOGIN = "user from login";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -68,7 +71,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
 
         //if the username exists, check that the provided password matches that of the user object
-        else
+        /*else
         {
             User queriedUser = queriedUserList.get(0);
             System.out.println(queriedUserList.get(0).getUsername());
@@ -79,18 +82,17 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LogInActivity.this, getResources().getString(R.string.incorrect_login_creds), Toast.LENGTH_LONG).show();
                 return;
             }
-        }
+        }*/
 
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
-
+        //user passed on to continue initialisation of user
         launchBudgetDisplayPage(queriedUserList.get(0));
     }
 
     private void launchBudgetDisplayPage(User validUser) {
 
-
         Intent setupBudgetDisplayPage = new Intent(LogInActivity.this, BudgetDisplayPage.class);
-        setupBudgetDisplayPage.putExtra("valid_user", validUser);
+        setupBudgetDisplayPage.putExtra(TAG_USER_LOGIN, validUser);
 
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
