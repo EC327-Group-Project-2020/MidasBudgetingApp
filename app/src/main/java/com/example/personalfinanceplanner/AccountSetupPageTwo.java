@@ -28,9 +28,9 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
     private TextView budgetGoal;
 
     //Tag for username when passed on to next activity
-    public static final String TAG_USERNAME = "username from previous";
+    public static final String TAG_USER_SETUP2 = "user from setup page 2";
     //var from last activity
-    private String username;
+    private User validUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,22 +73,19 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
 
         //add to database
         //get username from page 1
-        username = getIntent().getExtras().getString(AccountSetupPageOne.TAG_USERNAME);
-        Log.d(TAG_DEBUG, "Username from previous: " + username);
-        List<User> userInQuestion = accessDatabase.grabUser(username);
-        userInQuestion.get(0).setMonthlyIncome(Double.parseDouble(incomeInput));
+        validUser = (User) getIntent().getExtras().getSerializable(AccountSetupPageOne.TAG_USER_SETUP1);
+        validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
 
         //Launch new activity
-        launchBudgetDisplayPage(username);
+        launchBudgetDisplayPage(validUser);
 
     }
 
-
     //Function to launch budget display page
-    private void launchBudgetDisplayPage(String username) {
+    private void launchBudgetDisplayPage(User validUser) {
         Intent setupBudgetDisplayPage = new Intent(AccountSetupPageTwo.this, BudgetDisplayPage.class);
         //setupBudgetDisplayPage.putExtra("valid_user", validUser);
-        setupBudgetDisplayPage.putExtra(TAG_USERNAME,username);
+        setupBudgetDisplayPage.putExtra(TAG_USER_SETUP2,validUser);
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }

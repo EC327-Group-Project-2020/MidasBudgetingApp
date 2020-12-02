@@ -26,5 +26,6 @@
             android:name=".BudgetDisplayPage"
             android:exported="true" />
         <activity android:name=".LogInActivity" />
+        <activity android:name=".AccountSetupPageTwo"/>
     </application>
 </manifest>

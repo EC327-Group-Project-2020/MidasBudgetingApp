@@ -17,6 +17,11 @@
     <string name="prompt_income">Monthly income/budget (USD)</string>
     <string name="prompt_goal">Monthly goal (optional)</string>
 
+    <!-- Budget Display Activity Strings -->
+    <string name="welcome_string">Welcome </string>
+    <string name="currency_header">Change Currency</string>
+
+
     <!-- Error Messages -->
 
     <string name="user_fields_empty_error">Please fill out all fields!</string>
@@ -55,7 +60,6 @@
 
     <!-- Login Page Strings -->
     <string name="login_header">Log in</string>
-    <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
 
 </resources>

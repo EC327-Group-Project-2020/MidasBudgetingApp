@@ -36,7 +36,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
     private dbViewModel accessDatabase;
 
     //Tag for username when passed on to next activity
-    public static final String TAG_USERNAME = "username from previous";
+    public static final String TAG_USER_SETUP1 = "user from setup page 1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, AccountSetupPageTwo.class);
 
         //username passed on to continue initialisation of user
-        setupPageTwoActivity.putExtra(TAG_USERNAME,usernameInput);
+        setupPageTwoActivity.putExtra(TAG_USER_SETUP1,createdUser);
 
         //Launch second page of account setup
         startActivity(setupPageTwoActivity);

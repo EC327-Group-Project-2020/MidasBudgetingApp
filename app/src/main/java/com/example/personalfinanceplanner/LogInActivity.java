@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private dbViewModel accessDatabase;
 
     //tag to pass on to next
-    public static final String TAG_USERNAME = "username from previous";
+    public static final String TAG_USER_LOGIN = "user from login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,17 +85,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }*/
 
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
-        //username passed on to continue initialisation of user
-        launchBudgetDisplayPage(usernameInput);
-        //launchBudgetDisplayPage(queriedUserList.get(0));
+        //user passed on to continue initialisation of user
+        launchBudgetDisplayPage(queriedUserList.get(0));
     }
 
-    private void launchBudgetDisplayPage(String username) {
-
+    private void launchBudgetDisplayPage(User validUser) {
 
         Intent setupBudgetDisplayPage = new Intent(LogInActivity.this, BudgetDisplayPage.class);
-        //setupBudgetDisplayPage.putExtra("valid_user", validUser);
-        setupBudgetDisplayPage.putExtra(TAG_USERNAME,username);
+        setupBudgetDisplayPage.putExtra(TAG_USER_LOGIN, validUser);
+
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }
