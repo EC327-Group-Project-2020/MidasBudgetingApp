@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 launchLogInActivity();
                 break;
             }
-            //INPUT OTHER CASES HERE TO CONTROL WHERE USER GOES BASED ON EXISTENCE OF ACCOUNTS, BUTTON PRESSED, ETC
         }
     }
 
