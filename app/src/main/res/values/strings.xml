@@ -31,7 +31,7 @@
     <string name="add_duplicate_currency_error">Error: currency type has already been added to saved list.</string>
     <string name="remove_USD_error_message">"Error: cannot delete default currency."</string>
     <string name="empty_income_field">"Please enter an income amount to help us make your budgeting golden!"</string>
-    <string name="income_not_number">"Invalid income value entered"</string>
+    <string name="income_val_invalid">"Invalid income value entered"</string>
 
     <!-- Dropdown Selection Strings -->
     <string-array name="securityQuestionOneChoices">
