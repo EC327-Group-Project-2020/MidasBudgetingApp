@@ -4,6 +4,7 @@
     <!--Starting Page Strings-->
     <string name="sign_in">Sign In</string>
     <string name="create_account">Create Account</string>
+    <string name="setup_account">Setup Account</string>
     <string name="next">Next</string>
     <string name="app_title">Midas</string>
     <string name="slogan">Budgeting Made Golden</string>
@@ -49,5 +50,18 @@
     <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
     <string name="incorrect_login_creds">Username or Password Incorrect</string>
+
+    <!-- tutorial page strings-->
+    <string name="meet_midas">Study, work, play, and don\\'t go broke.</string>
+    <string name="tutorial_intro">Leave the math to Midas.</string>
+    <string name="budget_intro">Whether you plan to bungee jump in NZ, shop on the Champs-Elysees, hike up to Machu Picchu, or take a taxi through Tokyo you need to make sure you don\'t run out of cash. Creating, using, and updating a personal or family budget can help you achieve your goals and develop a sense of safety and self-reliance. If you don\\'t have one yet, don\\'t worry! We'll explain a few key concepts and help you get started making your dreams into reality with Midas.</string>
+    <string name="budget_continue">Effective Budgeting</string>
+    <string name="budget_step1">STEP 1: SET S.M.A.R.T. Financial Goals</string>
+    <string name="budget_step2">STEP 2: Review spending categories</string>
+    <string name="budget_step3">STEP 3: Record your expenses</string>
+    <string name="budget_step4">STEP 4: Track your Progress</string>
+    <string name="skip_tutorial">Skip the Tutorial</string>
+    <string name="continue_tutorial">Get Started >></string>
+
 
 </resources>

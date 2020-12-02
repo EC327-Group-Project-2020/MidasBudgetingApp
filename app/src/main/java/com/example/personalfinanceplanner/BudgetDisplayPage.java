@@ -120,4 +120,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
     }
+
+    public void goToCameraX (View view){
+        Intent intent = new Intent (this, CameraX.class);
+        startActivity(intent);
+    }
 }

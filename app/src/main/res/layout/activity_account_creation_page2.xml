@@ -128,7 +128,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="152dp"
         android:layout_marginTop="432dp"
-        android:entries="dfd,df,ddd,ddd"
+        android:entries="@array/securityQuestionOneChoices"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
