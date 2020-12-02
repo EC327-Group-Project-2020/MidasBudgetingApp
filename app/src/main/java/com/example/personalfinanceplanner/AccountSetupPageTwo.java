@@ -66,13 +66,12 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
             return;
 
         }
-        else if (incomeNotNumber(incomeInput)){
-            Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.income_not_number), Toast.LENGTH_LONG).show();
+        else if (incomeNotNumber(incomeInput) || incomeNegativeOrZero(incomeInput)){
+            Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.income_val_invalid), Toast.LENGTH_LONG).show();
             return;
         }
 
-        //add to database
-        //get username from page 1
+        //add income to database
         validUser = (User) getIntent().getExtras().getSerializable(AccountSetupPageOne.TAG_USER_SETUP1);
         validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
 
@@ -108,6 +107,13 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         try {
             Double d = Double.parseDouble(incomeInput);
         } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
+    }
+
+    public static Boolean incomeNegativeOrZero(String incomeInput) {
+        if(incomeInput.contains("-") || Double.parseDouble(incomeInput) == 0) {
             return true;
         }
         return false;
