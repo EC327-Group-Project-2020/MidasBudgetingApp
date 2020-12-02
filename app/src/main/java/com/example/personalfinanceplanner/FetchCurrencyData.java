@@ -99,7 +99,7 @@ public class FetchCurrencyData extends AsyncTask<Void, Void,Void> {
         super.onPostExecute(aVoid);
 
         //transfer data to vars in MainActivity
-        String prompt = "Add Currency";
+        String prompt = "Add new";
 
         BudgetDisplayPage.names.add(0,prompt);
 
