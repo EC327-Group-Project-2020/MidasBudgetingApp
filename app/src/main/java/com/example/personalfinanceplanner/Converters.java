@@ -17,7 +17,7 @@ public class Converters {
         @TypeConverter
         public ArrayList<String> stringToArrayList(String roomData) {
             if (roomData == null) {
-                return new ArrayList<>(); //creates empty list instance
+                return new ArrayList<String>(); //creates empty list instance
             }
 
             Type listType = new TypeToken<ArrayList<String>>(){}.getType();

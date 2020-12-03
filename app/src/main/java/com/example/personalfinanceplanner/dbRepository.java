@@ -59,6 +59,10 @@ public class dbRepository {
             return mUserDao.loadGivenUserLive(username);
         }
 
+        List<Expense> getUserExpenses(long userID) {
+            return mUserDao.getUserExpenses(userID);
+        }
+
         List<UserWithExpenses> getUserWithExpenses(long userID) { //returns the list of expenses for the user with given userID
             return mUserDao.getUserWithExpenses(userID);
         }

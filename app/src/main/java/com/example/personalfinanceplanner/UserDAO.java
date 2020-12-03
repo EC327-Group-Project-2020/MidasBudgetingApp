@@ -44,6 +44,9 @@ public interface UserDAO {
     void deleteAll();
     //add more queries here based on the information that needs to be searched and returned; must return LiveData for UI to update
 
+    @Query("SELECT * FROM expense_info WHERE associated_userID LIKE :providedUserID") //returns list of expenses for a given user id
+    List<Expense> getUserExpenses(long providedUserID);
+
     @Transaction
     @Query("SELECT * FROM user_info WHERE userID LIKE :providedUserID") //returns the associated user with their expenses, based on the provided userID
     List<UserWithExpenses> getUserWithExpenses(long providedUserID);

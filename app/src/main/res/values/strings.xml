@@ -19,9 +19,9 @@
     <string name="prompt_goal">Monthly goal (optional)</string>
 
     <!-- Budget Display Activity Strings -->
-    <string name="welcome_string">Welcome </string>
+    <string name="welcome_string">Welcome</string>
     <string name="currency_header">Change Currency</string>
-
+    <string name="expense_creation_success">Expense created!</string>
 
     <!-- Error Messages -->
 
@@ -32,6 +32,8 @@
     <string name="add_duplicate_currency_error">Error: currency type has already been added to saved list.</string>
     <string name="remove_USD_error_message">"Error: cannot delete default currency."</string>
     <string name="empty_income_field">"Please enter an income amount to help us make your budgeting golden!"</string>
+    <string name="income_not_number">"Invalid income value entered"</string>
+    <string name="expense_creation_missing_fields">Please provide at least an expense amount and category.</string>
     <string name="income_val_invalid">"Invalid income value entered"</string>
 
     <!-- Dropdown Selection Strings -->
@@ -63,6 +65,35 @@
     <string name="login_header">Log in</string>
     <string name="login_login">Log In</string>
 
+
+    <!-- Add Expense Page -->
+    <string name="expense_amount">Expense Amount (USD)</string>
+    <string name="expense_category">Category</string>
+    <string name="upload_receipt">Upload Receipt</string>
+    <string name="capture_image">Capture image</string>
+    <string name="expense_notes">Notes</string>
+    <string name="submit_expense">Submit Expense</string>
+    <string name="create_expense_header"><u>Create Expense</u></string>
+
+    <string-array name="expense_categories">
+        <item>Choose an expense category</item>
+        <item>Entertainment</item>
+        <item>Education</item>
+        <item>Shopping</item>
+        <item>Personal Care</item>
+        <item>Health &amp; Fitness</item>
+        <item>Kids</item>
+        <item>Food &amp; Dining</item>
+        <item>Gifts &amp; Donations</item>
+        <item>Investments</item>
+        <item>Bills &amp; Utilities</item>
+        <item>Auto &amp; Transport</item>
+        <item>Travel</item>
+        <item>Fees &amp; Charges</item>
+        <item>Business Services</item>
+        <item>Taxes</item>
+    </string-array>
+
     <!-- tutorial page strings-->
     <string name="meet_midas">Study, work, play, and do not go broke.</string>
     <string name="tutorial_intro">Leave the math to Midas.</string>
@@ -74,6 +105,5 @@
     <string name="budget_step4">STEP 4: Track your Progress</string>
     <string name="skip_tutorial">Skip the Tutorial</string>
     <string name="continue_tutorial">Get Started >></string>
-
 
 </resources>
