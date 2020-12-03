@@ -64,9 +64,9 @@
     <string name="login_login">Log In</string>
 
     <!-- tutorial page strings-->
-    <string name="meet_midas">Study, work, play, and don\\'t go broke.</string>
+    <string name="meet_midas">Study, work, play, and do not go broke.</string>
     <string name="tutorial_intro">Leave the math to Midas.</string>
-    <string name="budget_intro">Whether you plan to bungee jump in NZ, shop on the Champs-Elysees, hike up to Machu Picchu, or take a taxi through Tokyo you need to make sure you don\'t run out of cash. Creating, using, and updating a personal or family budget can help you achieve your goals and develop a sense of safety and self-reliance. If you don\\'t have one yet, don\\'t worry! We'll explain a few key concepts and help you get started making your dreams into reality with Midas.</string>
+    <string name="budget_intro">Whether you plan to bungee jump in NZ, shop on the Champs-Elysees, hike up to Machu Picchu, or take a taxi through Tokyo you need to make sure you do not run out of cash. Creating, using, and updating a personal or family budget can help you achieve your goals and develop a sense of safety and self-reliance. If you do not have one yet, do not worry! We will explain a few key concepts and help you get started making your dreams into reality with Midas.</string>
     <string name="budget_continue">Effective Budgeting</string>
     <string name="budget_step1">STEP 1: SET S.M.A.R.T. Financial Goals</string>
     <string name="budget_step2">STEP 2: Review spending categories</string>
