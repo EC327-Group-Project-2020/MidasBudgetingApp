@@ -1,0 +1,126 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 8,
+    "identityHash": "9b453829538af2f7874f25d398a3efef",
+    "entities": [
+      {
+        "tableName": "user_info",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `username` TEXT NOT NULL, `password` TEXT NOT NULL, `security_question_one` TEXT NOT NULL, `security_question_two` TEXT NOT NULL, `security_answer_one` TEXT NOT NULL, `security_answer_two` TEXT NOT NULL, `saved_currency_list` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "securityQuestionOne",
+            "columnName": "security_question_one",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "securityQuestionTwo",
+            "columnName": "security_question_two",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "securityAnswerOne",
+            "columnName": "security_answer_one",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "securityAnswerTwo",
+            "columnName": "security_answer_two",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "savedCurrencies",
+            "columnName": "saved_currency_list",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "expense_info",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`expenseID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `associated_userID` INTEGER NOT NULL, `amount` REAL NOT NULL, `category` TEXT NOT NULL, `receiptImageFilepath` TEXT, `expenseNotes` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "expenseID",
+            "columnName": "expenseID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "associatedUserID",
+            "columnName": "associated_userID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "receiptImageFilepath",
+            "columnName": "receiptImageFilepath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "expenseNotes",
+            "columnName": "expenseNotes",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "expenseID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9b453829538af2f7874f25d398a3efef')"
+    ]
+  }
+}

@@ -33,6 +33,8 @@ public class LogInActivityAndroidTest {
     public void setUp(){
         dummyDatabase =  Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(),AppDatabase.class).allowMainThreadQueries().build();
         dummyDao = dummyDatabase.userDao();
+        User dummyUser = (User) new User("nanna","123","blabla", "yoyo", "hihi","dodo");
+        dummyDao.insertUser(dummyUser);
         Log.d(TAG_DEBUG, "Dummy database set up");
     }
 

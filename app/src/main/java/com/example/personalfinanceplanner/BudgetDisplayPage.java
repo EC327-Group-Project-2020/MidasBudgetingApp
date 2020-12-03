@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,13 +25,11 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import static com.example.personalfinanceplanner.AddExpenseActivity.TAG_EXPENSE_CREATED;
 import static com.example.personalfinanceplanner.LogInActivity.TAG_USER_LOGIN;
 
@@ -53,8 +50,8 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
     //dropdown with currencies
     private Spinner addCurrency;        //displays async retrieved names from online currency base
-    private Spinner currCurrency;
-    /* TODO implement this spinner/equivalent by retrieving users currency names from database*/
+    private Spinner currCurrency;       //displays user currently saved currencies
+
 
     //containers to interact with FetchCurrency and hold currency data
     public static ArrayList<String> names = new ArrayList<String>();        //array of currency names to select from
@@ -80,29 +77,41 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_display);
 
-        //msg to log
         Log.d(TAG_DEBUG, "Loading budget page!");
+
+
+        //<--------------GETTING DATABASE STUFF-------------->
 
         //create ViewModel for accessing database
         databaseAccessor = new dbViewModel(getApplication());
 
-        //grabs user passed from login
-        Bundle passedUser = getIntent().getExtras();
 
-        //assign user passed from login to the object loggedInUser CONSIDER REPLACING WITH TRY-CATCH BLOCK
+        //grabs user passed from login
+
+        //check if correct user was passed from login and stores verification result
+
+        Bundle passedUser = getIntent().getExtras();
         if(passedUser != null) {
+
             if(getIntent().getSerializableExtra(TAG_USER_LOGIN) != null){
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_USER_LOGIN);
             }
             else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_EXPENSE_CREATED);
+
+            //assign user passed from login/signup to logged in user
+            if(getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN) != null){
+            loggedInUser = (User) getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN);
+
             }
             else{
                 loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
             }
+            //get currency list and name of user
             storedCurrencies = loggedInUser.getSavedCurrencies();
             userName = loggedInUser.getUsername();
         }
@@ -110,7 +119,11 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
 
 
+
         //welcoming our customers
+
+                //------WELCOME HEADER WITH USERNAME------//
+
         welcomeHeader = (TextView) findViewById(R.id.welcomeBanner);
         String txt = welcomeHeader.getText().toString();
         txt = txt + " " + userName + "!";
@@ -305,22 +318,26 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         totalExpensesOverTimeChart.getAxisLeft().addLimitLine(ll);
         ll.setLineColor(Color.parseColor("#FED215"));
         ll.setLineWidth(3f);
+          
+        //<--------------GETTING DATABASE STUFF ENDS HERE-------------->
 
 
         //<--------------CURRENCY FEATURE STARTS HERE-------------->
-        //connecting the spinner
-        addCurrency = (Spinner) findViewById(R.id.currencyMenu);
 
-        //Start async activity to fetch data
+        //Start async activity to fetch currency data
         FetchCurrencyData fetch = new FetchCurrencyData();
         fetch.execute();
+
+                //------SPINNER 1: CURRENCY MENU------//
+        //connecting the spinner to layout
+        addCurrency = (Spinner) findViewById(R.id.currencyMenu);
 
         //Setting the ArrayAdapter data on the add-currency spinner
         aa = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item,names);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addCurrency.setAdapter(aa);
 
-        //setting on click for currency to be added to database based on select
+        //setting on select for currency to be added to database based on select
         addCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -351,14 +368,14 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             }
         });
 
-        //currencies available queried
+                //------SPINNER 2 - User currencies------//
         //connecting current currency spinner
         currCurrency = (Spinner) findViewById(R.id.currencyChoice);
         ab = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item,storedCurrencies);
         ab.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currCurrency.setAdapter(ab);
 
-        //add onselect
+        //add onselect, selected currency rate gets stored in double currencyRate
         currCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -413,6 +430,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         }
     }
 
+
     private void launchExpenseCreationActivity(User user) {
 
         Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
@@ -420,10 +438,16 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         //Launch second page of account setup
         startActivity(setupExpenseCreation);
+
+  /*TODO add/fix the button in expense addition to add a picture of a receipt*/
+    public void goToCameraX (View view){
+        Intent intent = new Intent(BudgetDisplayPage.this, CameraX.class);
+        startActivity(intent);
     }
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
 
     /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
         //MULTIPLY BY double variable currencyRate in all data display to get functional of that
         //need to be able to query a user for all expenses, for graphical display
+
 }
