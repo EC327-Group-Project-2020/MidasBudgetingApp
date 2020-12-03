@@ -1,5 +1,6 @@
 package com.example.personalfinanceplanner;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -212,7 +213,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
   /*TODO add/fix the button in expense addition to add a picture of a receipt*/
     public void goToCameraX (View view){
-        Intent intent = new Intent (this, CameraX.class);
+        Intent intent = new Intent(BudgetDisplayPage.this, CameraX.class);
         startActivity(intent);
     }
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
