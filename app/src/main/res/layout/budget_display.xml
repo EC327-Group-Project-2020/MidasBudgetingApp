@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintVertical_bias="0.783" />
 
     <Spinner
         android:id="@+id/currencyChoice"
@@ -28,6 +28,7 @@
         android:background="@drawable/button_border"
         app:layout_constraintBottom_toTopOf="@+id/addExpenseButton"
         app:layout_constraintEnd_toStartOf="@+id/currencyMenu"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
