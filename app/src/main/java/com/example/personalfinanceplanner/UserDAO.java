@@ -15,8 +15,12 @@ import java.util.List;
 @Dao
 public interface UserDAO {
 
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user); //for adding a User to the Room database
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertExpense(Expense expense); //for adding expenses
 
     @Update
     void updateUser(User user); //for updating User in the database
@@ -42,6 +46,6 @@ public interface UserDAO {
 
     @Transaction
     @Query("SELECT * FROM user_info WHERE userID LIKE :providedUserID") //returns the associated user with their expenses, based on the provided userID
-    List<UserAndExpenses> getUserWithExpenses(long providedUserID);
+    List<UserWithExpenses> getUserWithExpenses(long providedUserID);
     //THIS NEEDS TO BE TESTED
 }

@@ -1,9 +1,13 @@
 package com.example.personalfinanceplanner;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,7 +17,7 @@ public class Converters {
         @TypeConverter
         public ArrayList<String> stringToArrayList(String roomData) {
             if (roomData == null) {
-                return new ArrayList<String>(); //creates empty list instance
+                return new ArrayList<>(); //creates empty list instance
             }
 
             Type listType = new TypeToken<ArrayList<String>>(){}.getType();
@@ -28,14 +32,15 @@ public class Converters {
         }
 
 
-        //NEED TO EDIT FOR STORING TIMESTAMP DATA IN ROOM
+        //timestamp type conversions
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @TypeConverter
-        public static Date fromTimestamp(Long value) {
-            return value == null ? null : new Date(value);
+        public static OffsetDateTime stringToTimestamp(String time_string) {
+            return time_string == null ? null : OffsetDateTime.parse(time_string);
         }
 
         @TypeConverter
-        public static Long dateToTimestamp(Date date) {
-            return date == null ? null : date.getTime();
+        public static String timestampToString(OffsetDateTime timestamp) {
+            return timestamp == null ? null : timestamp.toString();
         }
     }

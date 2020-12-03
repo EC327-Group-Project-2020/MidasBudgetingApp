@@ -14,11 +14,25 @@
     <string name="prompt_password">Password</string>
     <string name="security_answer_one">Answer 1</string>
     <string name="security_answer_two">Answer 2</string>
+    <string name="sign_up_btn">Finish</string>
+    <string name="prompt_income">Monthly income/budget (USD)</string>
+    <string name="prompt_goal">Monthly goal (optional)</string>
+
+    <!-- Budget Display Activity Strings -->
+    <string name="welcome_string">Welcome </string>
+    <string name="currency_header">Change Currency</string>
+
 
     <!-- Error Messages -->
+
+    <string name="user_fields_empty_error">Please fill out all fields!</string>
+    <string name="username_already_taken_error">Oops! That username is already taken</string>
+    <string name="incorrect_login_creds">Incorrect password or username!</string>
     <string name="error_message">Please fill out all fields!</string>
     <string name="add_duplicate_currency_error">Error: currency type has already been added to saved list.</string>
     <string name="remove_USD_error_message">"Error: cannot delete default currency."</string>
+    <string name="empty_income_field">"Please enter an income amount to help us make your budgeting golden!"</string>
+    <string name="income_val_invalid">"Invalid income value entered"</string>
 
     <!-- Dropdown Selection Strings -->
     <string-array name="securityQuestionOneChoices">
@@ -47,9 +61,7 @@
 
     <!-- Login Page Strings -->
     <string name="login_header">Log in</string>
-    <string name="login_email">Email:</string>
     <string name="login_login">Log In</string>
-    <string name="incorrect_login_creds">Username or Password Incorrect</string>
 
     <!-- tutorial page strings-->
     <string name="meet_midas">Study, work, play, and don\\'t go broke.</string>

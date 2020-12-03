@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    public long userID;
+    private long userID;
 
     @NonNull
     @ColumnInfo(name = "username")
@@ -42,7 +42,10 @@ public class User implements Serializable {
     @NonNull
     @TypeConverters(Converters.class)
     @ColumnInfo(name = "saved_currency_list")
-    private ArrayList<String> savedCurrencies = new ArrayList<String>(); //creates empty resizeable array
+    private ArrayList<String> savedCurrencies = new ArrayList<>(); //creates empty resizeable array
+
+    @ColumnInfo(name = "monthly_income")
+    private double monthlyIncome;
 
     //constructor
     public User(String username, String password, String securityQuestionOne, String securityQuestionTwo, String securityAnswerOne, String securityAnswerTwo)
@@ -66,6 +69,7 @@ public class User implements Serializable {
         this.securityAnswerOne = user.getSecurityAnswerOne();
         this.securityAnswerTwo = user.getSecurityAnswerTwo();
         this.savedCurrencies = user.getSavedCurrencies();
+        this.monthlyIncome = user.monthlyIncome;
     }
 
     /*NOTE: getter and setter names below should NOT be altered. In order to keep
@@ -75,6 +79,10 @@ public class User implements Serializable {
      */
 
     //accessors and mutators
+    public void setUserID(long newUserID) { userID = newUserID; }
+
+    public long getUserID() { return userID; }
+
     public void setUsername(String new_name) {
         username = new_name;
     }
@@ -126,6 +134,10 @@ public class User implements Serializable {
     public void setSavedCurrencies(ArrayList<String> newSavedCurrency) { savedCurrencies = newSavedCurrency; }
 
     public ArrayList<String> getSavedCurrencies() { return savedCurrencies; }
+
+    public void setMonthlyIncome(double newMonthlyIncome) { monthlyIncome = newMonthlyIncome; }
+
+    public double getMonthlyIncome() { return monthlyIncome; }
 
     //other member functions
 
