@@ -8,13 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
@@ -39,6 +37,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     //VARIABLES
     //debug tag for log
     private static final String TAG_DEBUG = BudgetDisplayPage.class.getName();
+    public static final String TAG_USER_BUDGET_DISPLAY = "user from budget display";
 
     //create User to hold the user object passed from login
     private User loggedInUser;
@@ -89,30 +88,31 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         //create ViewModel for accessing database
         databaseAccessor = new dbViewModel(getApplication());
 
-
         //grabs user passed from login
-
         Bundle passedUser = getIntent().getExtras();
+
         if(passedUser != null) {
 
+            //assign user passed from login/signup to logged in user
             if (getIntent().getSerializableExtra(TAG_USER_LOGIN) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_USER_LOGIN);
-            } else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
+            }
+
+            else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_EXPENSE_CREATED);
+            }
 
-                //assign user passed from login/signup to logged in user
-                if (getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN) != null) {
-                    loggedInUser = (User) getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN);
-
-                } else {
-                    loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
+            else {
+                loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
                 }
-                //get currency list and name of user
-                storedCurrencies = loggedInUser.getSavedCurrencies();
-                userName = loggedInUser.getUsername();
-            } else
-                System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
-        }
+
+            //get currency list and name of user
+            storedCurrencies = loggedInUser.getSavedCurrencies();
+            userName = loggedInUser.getUsername();
+            }
+
+        else
+            System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
 
 
         //welcoming our customers
@@ -128,6 +128,8 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         List<Expense> userExpenses = databaseAccessor.getUserExpenses(loggedInUser.getUserID());
         LineChart expensesPerDayLineChart = findViewById(R.id.daily_expenses_trendline);
+        expensesPerDayLineChart.invalidate(); //refreshes chart
+        expensesPerDayLineChart.notifyDataSetChanged(); //alerts chart when underlying data has changed
 
         //grab chart components
         XAxis xAxis = expensesPerDayLineChart.getXAxis();
@@ -185,9 +187,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         ArrayList<ILineDataSet> lineDataSets = new ArrayList<ILineDataSet>();
         lineDataSets.add(dataSet);
         LineData data = new LineData(lineDataSets);
-        expensesPerDayLineChart.invalidate(); //refreshes chart
         expensesPerDayLineChart.setData(data); //draw chart
-        expensesPerDayLineChart.notifyDataSetChanged(); //alerts chart when underlying data has changed
 
         //chart styling
         expensesPerDayLineChart.setVisibleXRange(1, daysInCurrentMonth);
@@ -218,6 +218,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         //START OF RUNNING EXPENSE TOTAL PER DAY, COMPARED TO BUDGET
 
         LineChart totalExpensesOverTimeChart = findViewById(R.id.total_expenses_trendline);
+        totalExpensesOverTimeChart.invalidate(); //refreshes chart
+        totalExpensesOverTimeChart.notifyDataSetChanged(); //alerts chart when underlying data has changed
+
         int currentDayInMonth = (OffsetDateTime.now(ZoneId.systemDefault())).getDayOfMonth();
 
         //grab chart components
@@ -280,9 +283,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         ArrayList<ILineDataSet> lineDataSets2 = new ArrayList<ILineDataSet>();
         lineDataSets2.add(dataSet2);
         LineData data2 = new LineData(lineDataSets2);
-        totalExpensesOverTimeChart.invalidate(); //refreshes chart
         totalExpensesOverTimeChart.setData(data2); //draw chart
-        totalExpensesOverTimeChart.notifyDataSetChanged(); //alerts chart when underlying data has changed
 
         //chart styling
         totalExpensesOverTimeChart.setVisibleXRange(1, daysInCurrentMonth);
@@ -428,7 +429,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     private void launchExpenseCreationActivity(User user){
 
             Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
-            setupExpenseCreation.putExtra(TAG_USER_LOGIN, user);
+            setupExpenseCreation.putExtra(TAG_USER_BUDGET_DISPLAY, user);
 
             //Launch second page of account setup
             startActivity(setupExpenseCreation);
