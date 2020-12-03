@@ -92,32 +92,27 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         //grabs user passed from login
 
-        //check if correct user was passed from login and stores verification result
-
         Bundle passedUser = getIntent().getExtras();
         if(passedUser != null) {
 
-            if(getIntent().getSerializableExtra(TAG_USER_LOGIN) != null){
+            if (getIntent().getSerializableExtra(TAG_USER_LOGIN) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_USER_LOGIN);
-            }
-            else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
+            } else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_EXPENSE_CREATED);
 
-            //assign user passed from login/signup to logged in user
-            if(getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN) != null){
-            loggedInUser = (User) getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN);
+                //assign user passed from login/signup to logged in user
+                if (getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN) != null) {
+                    loggedInUser = (User) getIntent().getSerializableExtra(LogInActivity.TAG_USER_LOGIN);
 
-            }
-            else{
-                loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
-            }
-            //get currency list and name of user
-            storedCurrencies = loggedInUser.getSavedCurrencies();
-            userName = loggedInUser.getUsername();
+                } else {
+                    loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
+                }
+                //get currency list and name of user
+                storedCurrencies = loggedInUser.getSavedCurrencies();
+                userName = loggedInUser.getUsername();
+            } else
+                System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
         }
-        else
-            System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
-
 
 
         //welcoming our customers
@@ -261,7 +256,6 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             dataPointsSet2.add(new Entry((i+1), (float) runningExpenseSumPerDay[i]));//value of the x is the day of the month (i+1), value of y is the total amount spent that day
         }
 
-        loggedInUser.setMonthlyBudget(2000);
         float monthlyBudget = loggedInUser.getMonthlyBudget();
         float maxYvalue = (monthlyBudget > runningExpenseSumPerDay[currentDayInMonth]) ? (float) loggedInUser.getMonthlyBudget() : (float) runningExpenseSumPerDay[currentDayInMonth]; //sets the max y value of the graph as either the budget or your current expense total, depending on which is bigger
 
@@ -431,19 +425,15 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     }
 
 
-    private void launchExpenseCreationActivity(User user) {
+    private void launchExpenseCreationActivity(User user){
 
-        Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
-        setupExpenseCreation.putExtra(TAG_USER_LOGIN, user);
+            Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
+            setupExpenseCreation.putExtra(TAG_USER_LOGIN, user);
 
-        //Launch second page of account setup
-        startActivity(setupExpenseCreation);
+            //Launch second page of account setup
+            startActivity(setupExpenseCreation);
+        }
 
-  /*TODO add/fix the button in expense addition to add a picture of a receipt*/
-    public void goToCameraX (View view){
-        Intent intent = new Intent(BudgetDisplayPage.this, CameraX.class);
-        startActivity(intent);
-    }
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
 
     /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
