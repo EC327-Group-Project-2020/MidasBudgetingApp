@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true" 
         android:theme="@style/Theme.PersonalFinancePlanner">
+        <activity android:name=".AddExpenseActivity"></activity>
         <activity android:name=".CameraX"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

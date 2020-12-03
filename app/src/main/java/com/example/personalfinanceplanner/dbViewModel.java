@@ -38,6 +38,9 @@ public class dbViewModel extends AndroidViewModel {
         return mRepository.queryUserLive(username);
     }
 
+    public List<Expense> getUserExpenses(long userID) { return mRepository.getUserExpenses(userID); }
+
+    //grabs user with given userID and all associated expenses
     public List<UserWithExpenses> getUserWithExpenses(long userID) {
         return mRepository.getUserWithExpenses(userID);
     }
