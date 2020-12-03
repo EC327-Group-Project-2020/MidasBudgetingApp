@@ -6,73 +6,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/currencyMenu"
-        android:layout_width="128dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="156dp"
-        android:background="@drawable/button_border"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
 
-    <Spinner
-        android:id="@+id/currencyChoice"
-        android:layout_width="127dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/button_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.784" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/currencyChoice"
+                android:layout_width="127dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="64dp"
+                android:background="@drawable/button_border"
+                app:layout_constraintBottom_toTopOf="@+id/total_expenses_trendline"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/total_expenses_trendline"
+                android:layout_width="364dp"
+                android:layout_height="269dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="61dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currencyChoice" />
+
+            <Spinner
+                android:id="@+id/currencyMenu"
+                android:layout_width="128dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="104dp"
+                android:layout_marginBottom="62dp"
+                android:background="@drawable/button_border"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toTopOf="@+id/total_expenses_trendline"
+                app:layout_constraintStart_toEndOf="@+id/currencyChoice"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/welcomeBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/welcome_string"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/daily_expenses_trendline"
+                android:layout_width="364dp"
+                android:layout_height="269dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="47dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_expenses_trendline" />
+
+            <TextView
+                android:id="@+id/currencyHeader"
+                android:layout_width="155dp"
+                android:layout_height="34dp"
+                android:text="@string/currency_header"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/currencyChoice"
+                app:layout_constraintStart_toStartOf="@+id/currencyChoice" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addExpenseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Add Expense"
-        android:textColor="#673AB7"
-        app:backgroundTint="#FFFFFF"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        app:backgroundTint="@color/gold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/welcomeBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="76dp"
-        android:text="@string/welcome_string"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/currencyHeader"
-        android:layout_width="155dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/currency_header"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/currencyChoice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:srcCompat="@mipmap/plus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

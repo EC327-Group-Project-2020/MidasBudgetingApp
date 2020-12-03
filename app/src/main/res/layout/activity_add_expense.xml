@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/expense_field"
+        android:layout_width="343dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:inputType="numberDecimal"
+        android:background="@drawable/button_border"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_expense_header" />
+
+    <TextView
+        android:id="@+id/expense_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expense_amount"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/expense_field"
+        app:layout_constraintStart_toStartOf="@+id/expense_field" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expense_category"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/category_field"
+        app:layout_constraintStart_toStartOf="@+id/category_field" />
+
+    <Spinner
+        android:id="@+id/category_field"
+        android:layout_width="343dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expense_field" />
+
+    <TextView
+        android:id="@+id/receipt_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_receipt"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/capture_image_button"
+        app:layout_constraintStart_toStartOf="@+id/capture_image_button" />
+
+    <TextView
+        android:id="@+id/notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expense_notes"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/notes_field"
+        app:layout_constraintStart_toStartOf="@+id/notes_field" />
+
+    <EditText
+        android:id="@+id/notes_field"
+        android:layout_width="343dp"
+        android:layout_height="156dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="top|left"
+        android:inputType="text"
+        android:background="@drawable/button_border"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/capture_image_button" />
+
+    <Button
+        android:id="@+id/capture_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/capture_image"
+        app:backgroundTint="#434343"
+        app:layout_constraintBottom_toTopOf="@+id/notes_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_field" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="343dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/submit_expense"
+        app:backgroundTint="#434343"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notes_field" />
+
+    <TextView
+        android:id="@+id/create_expense_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/create_expense_header"
+        android:textSize="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
