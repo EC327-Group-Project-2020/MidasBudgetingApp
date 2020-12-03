@@ -210,9 +210,15 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         }
     }
 
+  /*TODO add/fix the button in expense addition to add a picture of a receipt*/
+    public void goToCameraX (View view){
+        Intent intent = new Intent (this, CameraX.class);
+        startActivity(intent);
+    }
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
 
     /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
         //MULTIPLY BY double variable currencyRate in all data display to get functional of that
         //need to be able to query a user for all expenses, for graphical display
+
 }

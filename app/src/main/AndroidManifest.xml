@@ -2,8 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.personalfinanceplanner">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <meta-data
+        android:name="com.google.mlkit.vision.DEPENDENCIES"
+        android:value="ocr" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +23,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true" 
         android:theme="@style/Theme.PersonalFinancePlanner">
+        <activity android:name=".CameraX"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,4 +38,5 @@
         <activity android:name=".LogInActivity" />
         <activity android:name=".AccountSetupPageTwo"/>
     </application>
+
 </manifest>

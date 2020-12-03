@@ -1,0 +1,119 @@
+High Level Expense Category
+
+Entertainment
+Education
+Shopping
+Personal Care
+Health & Fitness
+Kids
+Food & Dining
+Gifts & Donations
+Investments
+Bills & Utilities
+Auto & Transport
+Travel
+Fees & Charges
+Business Services
+Taxes
+ 	 
+Descriptive Expense Categories
+
+Entertainment	
+	Arts	 
+ 	Music	 
+ 	Movies & DVDs	 
+ 	Newspaper & Magazines	
+ 
+Education 
+ 	Tuition	 
+ 	Student Loan	 
+ 	Books & Supplies
+	 
+Shopping
+ 	Clothing 
+ 	Books	 
+ 	Electronics & Software	 
+ 	Hobbies	 
+ 	Sporting Goods	 
+
+Personal Care
+ 	Laundry	  
+ 	Hair	 
+ 	Spa & Massage	  
+
+Health & Fitness
+ 	Dentist	 
+ 	Doctor	 
+ 	Eye care	 
+ 	Pharmacy	 
+ 	Health Insurance	 
+ 	Gym	 
+ 	Sports	 
+
+Kids
+ 	Activities	 
+ 	Allowance	 
+ 	Baby Supplies	 
+ 	Babysitter & Daycare	 
+ 	Child Support	 
+ 	Toys	 
+ 
+Food & Dining
+ 	Groceries	 
+ 	Coffee shops	 
+ 	Fast Food	 
+ 	Restaurants	 
+ 	Alcohol	 
+
+Gifts & Donations
+ 	Gift	 
+ 	Charity	 
+ 	Church	
+ 
+Investments 
+ 	Deposit	 
+ 	Withdrawal	 
+ 	Dividends & Cap Gains	 
+ 	Buy	 
+ 	Sell
+ 
+Bills & Utilities 
+ 	Television 
+ 	Internet	 
+ 	Mobile Phone	 
+ 	Utilities
+	 
+Auto & Transport
+ 	Gas & Fuel 
+ 	Parking	 
+ 	Service & Auto Parts	 
+ 	Auto Payment	 
+ 	Auto Insurance	
+ 
+Travel 
+ 	Air Travel	 
+ 	Hotel	 
+ 	Rental Car & Taxi	 
+ 	Vacation
+	 
+Fees & Charges
+ 	Service Fee	 
+ 	Late Fee	 
+ 	Finance Charge	 
+ 	ATM Fee	 
+ 	Bank Fee	 
+ 	Commissions
+	 
+Business Services
+	Advertising	 
+ 	Office Supplies	 
+ 	Printing	 
+ 	Shipping	 
+ 	Legal	 
+
+Taxes
+ 	Federal Tax	 
+ 	State Tax	 
+ 	Local Tax	 
+ 	Sales Tax	 
+ 	Property Tax
