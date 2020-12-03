@@ -5,7 +5,7 @@ import androidx.room.Relation;
 import java.util.List;
 
 //defines the relationship between the User Entity and the Expense entity, and associates them via a one-to-many relational database
-public class UserAndExpenses {
+public class UserWithExpenses {
     @Embedded public User user;
     @Relation(
             parentColumn = "userID",

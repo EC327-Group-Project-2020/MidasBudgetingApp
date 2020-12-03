@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <View
-        android:id="@+id/yellow_bubble2"
+        android:id="@+id/yellow_bubble4"
         android:layout_width="370dp"
         android:layout_height="296dp"
         android:layout_alignParentStart="true"
@@ -39,110 +40,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <EditText
-        android:id="@+id/Account1"
-        android:layout_width="242dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="104dp"
+        android:id="@+id/monthly_income"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints="username"
         android:background="@drawable/button_border"
-        android:hint="  Paul's account"
-        android:imeOptions="actionDone"
+        android:hint="@string/prompt_income"
         android:inputType="text"
         android:selectAllOnFocus="true"
-        app:layout_constraintStart_toEndOf="@+id/AccountName"
-        app:layout_constraintTop_toTopOf="@+id/SetupText"
-        android:autofillHints="" />
-
-    <TextView
-        android:id="@+id/SetupText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="160dp"
-        android:fontFamily="@font/biorhyme"
-        android:text="@string/setup_account"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/AccountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="260dp"
-        android:fontFamily="@font/biorhyme"
-        android:text="Account\nName: "
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/MonthlyIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="344dp"
-        android:fontFamily="@font/biorhyme"
-        android:text="Monthly\nIncome:"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/Income1"
-        android:layout_width="242dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="28dp"
-        android:autofillHints=""
+        android:id="@+id/budget_goal"
+        android:layout_width="300dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints="password"
         android:background="@drawable/button_border"
-        android:hint="  250 USD"
+        android:hint="@string/prompt_goal"
         android:imeOptions="actionDone"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:selectAllOnFocus="true"
-        app:layout_constraintBottom_toTopOf="@+id/goalsspinner"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/goals"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="432dp"
-        android:fontFamily="@font/biorhyme"
-        android:text="Goals for\nAccount:"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/goalsspinner"
-        android:layout_width="233dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="432dp"
-        android:entries="@array/securityQuestionOneChoices"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/monthly_income" />
 
     <Button
-        android:id="@+id/next_button"
+        android:id="@+id/finish_button"
         android:layout_width="343dp"
         android:layout_height="52dp"
         android:layout_marginStart="122dp"
         android:layout_marginEnd="122dp"
         android:layout_marginBottom="36dp"
-        android:text="@string/next"
+        android:text="@string/sign_up_btn"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/budget_goal"
+        app:layout_constraintVertical_bias="0.327" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
