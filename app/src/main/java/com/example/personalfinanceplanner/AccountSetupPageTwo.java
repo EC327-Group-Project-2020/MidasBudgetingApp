@@ -2,17 +2,12 @@ package com.example.personalfinanceplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class AccountSetupPageTwo extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,16 +33,16 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation_page2);
+        //AccountSetupPageTwo.this.getActionBar().hide();
 
         //Database instance
         accessDatabase = new dbViewModel(getApplication());
 
         //Btn
-        finishBtn = (Button) findViewById(R.id.finish_button);
+        finishBtn = (Button) findViewById(R.id.updateButton);
 
         //View
-        monthlyBudget = (TextView) findViewById(R.id.monthly_income);
-        budgetGoal = (TextView) findViewById(R.id.budget_goal);
+        monthlyBudget = (TextView) findViewById(R.id.newBudget);
 
         //set on click listener
         finishBtn.setOnClickListener(this);
@@ -60,7 +55,6 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
 
         //Get inputs
         String budgetInput = monthlyBudget.getText().toString();
-        String goalInput = budgetGoal.getText().toString();
 
         //validate
         if(incomeEmpty(budgetInput)){
@@ -69,17 +63,13 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
 
         }
         else if (incomeNotNumber(budgetInput) || incomeNegativeOrZero(budgetInput)){
-            Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.income_val_invalid), Toast.LENGTH_LONG).show();
+            Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.budget_val_invalid), Toast.LENGTH_LONG).show();
             return;
         }
 
         //add income to database
-
         validUser = (User) getIntent().getExtras().getSerializable(TutorialActivity2.TAG_USER_TUTORIAL2);
-        validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
-
-
-        //Launch new activity
+        validUser.setMonthlyBudget(Float.parseFloat(budgetInput));
         launchBudgetDisplayPage(validUser);
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PersonalFinancePlanner</string>
+    <string name="app_name">Midas</string>
 
     <!--Starting Page Strings-->
     <string name="sign_in">Sign In</string>
@@ -17,6 +17,7 @@
     <string name="sign_up_btn">Finish</string>
     <string name="prompt_income">Monthly budget (USD)</string>
     <string name="prompt_goal">Monthly goal (optional)</string>
+    <string name ="enter_budget_please">Enter your monthly budget, and we’ll handle the rest!</string>
 
     <!-- Budget Display Activity Strings -->
     <string name="welcome_string">Welcome</string>
@@ -34,7 +35,7 @@
     <string name="empty_income_field">"Please enter an income amount to help us make your budgeting golden!"</string>
     <string name="income_not_number">"Invalid income value entered"</string>
     <string name="expense_creation_missing_fields">Please provide at least an expense amount and category.</string>
-    <string name="income_val_invalid">"Invalid income value entered"</string>
+    <string name="budget_val_invalid">"Invalid budget value entered"</string>
 
     <!-- Dropdown Selection Strings -->
     <string-array name="securityQuestionOneChoices">
@@ -97,7 +98,9 @@
     <!-- tutorial page strings-->
     <string name="meet_midas">Study, work, play, and do not go broke.</string>
     <string name="tutorial_intro">Leave the math to Midas.</string>
-    <string name="budget_intro">Whether you plan to bungee jump in NZ, shop on the Champs-Elysees, hike up to Machu Picchu, or take a taxi through Tokyo you need to make sure you do not run out of cash. Creating, using, and updating a personal or family budget can help you achieve your goals and develop a sense of safety and self-reliance. If you do not have one yet, do not worry! We will explain a few key concepts and help you get started making your dreams into reality with Midas.</string>
+    <string name="budget_intro">Whether you plan to bungee jump in NZ, shop on the Champs-Elysees, hike up to Machu Picchu, or take a taxi through Tokyo you need to make sure you do not run out of cash.</string>
+    <string name="budget_intro_2">Creating, using, and updating a personal or family budget can help you achieve your goals and develop a sense of safety and self-reliance.</string>
+    <string name="budget_intro_3">If you do not have one yet, do not worry! We will explain a few key concepts and help you get started making your dreams into reality with Midas.</string>
     <string name="budget_continue">Effective Budgeting</string>
     <string name="budget_step1">STEP 1: SET S.M.A.R.T. Financial Goals</string>
     <string name="budget_step2">STEP 2: Review spending categories</string>
@@ -105,5 +108,15 @@
     <string name="budget_step4">STEP 4: Track your Progress</string>
     <string name="next_page">Continue</string>
     <string name="continue_tutorial">Get Started >></string>
+
+    <!-- tutorial page strings-->
+    <string name="profile_settings_header">Profile Settings</string>
+    <string name="update_budget">Update Monthly Budget</string>
+    <string name="update_budget_prompt">New budget (USD)</string>
+    <string name="update_budget_btn">Update</string>
+    <string name="edit_currencies">Edit Currencies</string>
+    <string name="remove_currencies">Remove selected currency from favorites:</string>
+    <string name="budget_update_notification">Your budget has been updated!</string>
+    <string name="currency_removed_notification">Currency removed from favorites!</string>
 
 </resources>

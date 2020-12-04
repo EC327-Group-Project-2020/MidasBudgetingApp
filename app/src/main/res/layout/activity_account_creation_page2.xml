@@ -41,10 +41,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/monthly_income"
+        android:id="@+id/newBudget"
         android:layout_width="300dp"
         android:layout_height="52dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:autofillHints="username"
         android:background="@drawable/button_border"
@@ -53,30 +54,12 @@
         android:selectAllOnFocus="true"
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/budget_goal"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints="password"
-        android:background="@drawable/button_border"
-        android:hint="@string/prompt_goal"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthly_income" />
+        app:layout_constraintTop_toBottomOf="@+id/enter_budget" />
 
     <Button
-        android:id="@+id/finish_button"
+        android:id="@+id/updateButton"
         android:layout_width="343dp"
         android:layout_height="52dp"
         android:layout_marginStart="122dp"
@@ -86,8 +69,21 @@
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budget_goal"
-        app:layout_constraintVertical_bias="0.327" />
+        app:layout_constraintTop_toBottomOf="@+id/newBudget"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <TextView
+        android:id="@+id/enter_budget"
+        android:layout_width="263dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="160dp"
+        android:text="@string/enter_budget_please"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/yellow_bubble4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

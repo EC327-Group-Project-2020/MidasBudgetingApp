@@ -53,6 +53,23 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/budget_intro"
                 android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView8"
+                android:layout_marginTop="10dp"
+                android:text="@string/budget_intro_2"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView9"
+                android:layout_marginTop="10dp"
+                android:text="@string/budget_intro_3"
+                android:textColor="#000000" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

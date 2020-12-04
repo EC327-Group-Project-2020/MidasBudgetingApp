@@ -43,10 +43,11 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation_page1);
+        //AccountSetupPageOne.this.getActionBar().hide();
 
         accessDatabase = new dbViewModel(getApplication());
 
-        next_button = (Button) findViewById(R.id.finish_button);
+        next_button = (Button) findViewById(R.id.updateButton);
 
         username_entry = (EditText) findViewById(R.id.username_field);
         password_entry = (EditText) findViewById(R.id.password);
