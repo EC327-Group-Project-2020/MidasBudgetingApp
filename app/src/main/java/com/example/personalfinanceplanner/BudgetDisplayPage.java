@@ -1,10 +1,14 @@
 package com.example.personalfinanceplanner;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,7 +45,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
     //create User to hold the user object passed from login
     private User loggedInUser;
-    private  ArrayList<String> storedCurrencies = new ArrayList<>();
+    private ArrayList<String> storedCurrencies = new ArrayList<>();
     private String userName;
 
     //declare dbViewModel for interaction with Database
@@ -119,6 +123,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
                 //------WELCOME HEADER WITH USERNAME------//
 
+        //------WELCOME HEADER WITH USERNAME------//
         welcomeHeader = (TextView) findViewById(R.id.welcomeBanner);
         String txt = welcomeHeader.getText().toString();
         txt = txt + " " + userName + "!";
@@ -156,7 +161,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             if (monthOfExpense == currentMonth && yearOfExpense == currentYear) { //checks to see if the expense in question occurred in the current calendar month and year
 
                 int dayOfExpense = expenseRecord.getTimestamp().getDayOfMonth();
-                expensesPerDay[dayOfExpense-1] = expensesPerDay[dayOfExpense-1] + expenseRecord.getAmount();//based on the day value of the expense, adds the expense amount to that position in array
+                expensesPerDay[dayOfExpense - 1] = expensesPerDay[dayOfExpense - 1] + expenseRecord.getAmount();//based on the day value of the expense, adds the expense amount to that position in array
             }
         }
 
@@ -171,7 +176,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         List<Entry> dataPoints = new ArrayList<Entry>(); //convert expense totals per day of current month into a set of data points
         for (int i = 0; i < expensesPerDay.length; i++) {
             // turn your data into Entry objects
-            dataPoints.add(new Entry((i+1), (float) expensesPerDay[i])); //value of the x is the day of the month (i+1), value of y is the total amount spent that day
+            dataPoints.add(new Entry((i + 1), (float) expensesPerDay[i])); //value of the x is the day of the month (i+1), value of y is the total amount spent that day
         }
 
         LineDataSet dataSet = new LineDataSet(dataPoints, null); // group data points as set for line graph
@@ -201,7 +206,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         yAxisRight.setEnabled(false);
         yAxisRight.setDrawGridLinesBehindData(false);
         yAxisLeft.setDrawGridLinesBehindData(false);
-        expensesPerDayLineChart.animateXY(500,500);
+        expensesPerDayLineChart.animateXY(500, 500);
         xAxis.setAxisLineColor(Color.parseColor("#434343"));
         yAxisLeft.setAxisLineColor(Color.parseColor("#434343"));
         xAxis.setAxisLineWidth(2f);
@@ -243,20 +248,20 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 int currentYear = (OffsetDateTime.now(ZoneId.systemDefault())).getYear();
                 int dayOfExpense = expenseRecord.getTimestamp().getDayOfMonth();
 
-                if (dayOfExpense == (i+1) && monthOfExpense == currentMonth && yearOfExpense == currentYear) {
+                if (dayOfExpense == (i + 1) && monthOfExpense == currentMonth && yearOfExpense == currentYear) {
                     runningExpenseSumPerDay[i] += expenseRecord.getAmount();
                 }
             }
 
             if (i > 0) {
-                runningExpenseSumPerDay[i] += runningExpenseSumPerDay[i-1];
+                runningExpenseSumPerDay[i] += runningExpenseSumPerDay[i - 1];
             }
         }
 
         List<Entry> dataPointsSet2 = new ArrayList<Entry>(); //convert expense totals per day of current month into a set of data points
         for (int i = 0; i < runningExpenseSumPerDay.length; i++) {
             // turn your data into Entry objects
-            dataPointsSet2.add(new Entry((i+1), (float) runningExpenseSumPerDay[i]));//value of the x is the day of the month (i+1), value of y is the total amount spent that day
+            dataPointsSet2.add(new Entry((i + 1), (float) runningExpenseSumPerDay[i]));//value of the x is the day of the month (i+1), value of y is the total amount spent that day
         }
 
         float monthlyBudget = loggedInUser.getMonthlyBudget();
@@ -273,8 +278,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             dataSet2.setColor(Color.GREEN);
             dataSet2.setFillColor(Color.GREEN);
             dataSet2.setCircleColor(Color.GREEN);
-        }
-        else {
+        } else {
             dataSet2.setColor(Color.parseColor("#ff0033"));
             dataSet2.setFillColor(Color.parseColor("#ff0033"));
             dataSet2.setCircleColor(Color.parseColor("#ff0033"));
@@ -298,7 +302,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         yAxisLeft2.setDrawGridLinesBehindData(false);
         yAxisLeft2.setAxisMinimum(0);
         yAxisLeft2.setAxisMaximum(maxYvalue + 200); //plus 100 is just to give space above max value on graph
-        totalExpensesOverTimeChart.animateXY(500,500);
+        totalExpensesOverTimeChart.animateXY(500, 500);
         xAxis2.setAxisLineColor(Color.parseColor("#434343"));
         yAxisLeft2.setAxisLineColor(Color.parseColor("#434343"));
         xAxis2.setAxisLineWidth(2f);
@@ -313,7 +317,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         totalExpensesOverTimeChart.getAxisLeft().addLimitLine(ll);
         ll.setLineColor(Color.parseColor("#FED215"));
         ll.setLineWidth(3f);
-          
+
         //<--------------GETTING DATABASE STUFF ENDS HERE-------------->
 
 
@@ -323,12 +327,12 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         FetchCurrencyData fetch = new FetchCurrencyData();
         fetch.execute();
 
-                //------SPINNER 1: CURRENCY MENU------//
+        //------SPINNER 1: CURRENCY MENU------//
         //connecting the spinner to layout
         addCurrency = (Spinner) findViewById(R.id.currencyMenu);
 
         //Setting the ArrayAdapter data on the add-currency spinner
-        aa = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item,names);
+        aa = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item, names);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addCurrency.setAdapter(aa);
 
@@ -337,14 +341,13 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(position != 0){
+                if (position != 0) {
 
                     String selectedCurrency = addCurrency.getSelectedItem().toString();
 
                     for (int i = 0; i < loggedInUser.getSavedCurrencies().size(); i++) //checks to make sure the currency hasn't already been added to profile
                     {
-                        if (loggedInUser.getSavedCurrencies().get(i).equals(selectedCurrency))
-                        {
+                        if (loggedInUser.getSavedCurrencies().get(i).equals(selectedCurrency)) {
                             Toast.makeText(BudgetDisplayPage.this, "Currency has already been added", Toast.LENGTH_SHORT).show();
                             return; //exits if the currency is already in the user's list
                         }
@@ -363,10 +366,10 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             }
         });
 
-                //------SPINNER 2 - User currencies------//
+        //------SPINNER 2 - User currencies------//
         //connecting current currency spinner
         currCurrency = (Spinner) findViewById(R.id.currencyChoice);
-        ab = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item,storedCurrencies);
+        ab = new ArrayAdapter<String>(BudgetDisplayPage.this, android.R.layout.simple_spinner_item, storedCurrencies);
         ab.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         currCurrency.setAdapter(ab);
 
@@ -377,31 +380,30 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 String translationCurrency = currCurrency.getSelectedItem().toString();
 
                 //get correct currency rate
-                if(translationCurrency.equals("USD")){
+                if (translationCurrency.equals("USD")) {
                     currencyRate = 1.0;
-                    Log.d(TAG_DEBUG, "currency is usd, rate is: " +currencyRate);
-                }
-                else{
+                    Log.d(TAG_DEBUG, "currency is usd, rate is: " + currencyRate);
+                } else {
                     Log.d(TAG_DEBUG, "namesRatesArray size: " + namesRates.size());
-                    for(int i=0; i < namesRates.size();i++){
-                        if(namesRates.get(i).get(CURRENCYNAME).equals(translationCurrency)){
+                    for (int i = 0; i < namesRates.size(); i++) {
+                        if (namesRates.get(i).get(CURRENCYNAME).equals(translationCurrency)) {
                             currencyRate = Double.parseDouble(namesRates.get(i).get(CURRENCYRATE));
-                            Log.d(TAG_DEBUG, "currency is "+namesRates.get(i).get(CURRENCYNAME)+", rate is" + currencyRate);
+                            Log.d(TAG_DEBUG, "currency is " + namesRates.get(i).get(CURRENCYNAME) + ", rate is" + currencyRate);
                         }
                     }
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                if(currCurrency.getItemAtPosition(0).toString().equals("USD")){
+                if (currCurrency.getItemAtPosition(0).toString().equals("USD")) {
                     currencyRate = 1.0;
                     Log.d(TAG_DEBUG, "default mode, currency usd, rate: " + currencyRate);
                 }
             }
-            });
+        });
 
         //<--------------CURRENCY FEATURE ENDS HERE-------------->
-
 
 
         //<--------------EXPENSE ADDITION FEATURE STARTS HERE----->
@@ -411,13 +413,12 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     }
 
     //if we want to click something
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
 
-        switch(v.getId())
-        {
-            case R.id.addExpenseButton:
-            {
+        switch (v.getId()) {
+            case R.id.addExpenseButton: {
                 launchExpenseCreationActivity(loggedInUser);
                 break;
             }
@@ -428,6 +429,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
     private void launchExpenseCreationActivity(User user){
 
+
             Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
             setupExpenseCreation.putExtra(TAG_USER_BUDGET_DISPLAY, user);
 
@@ -437,8 +439,43 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
 
-    /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
+        /*TODO add/fix the button in expense addition to add a picture of a receipt*/
+        public void goToCameraX (View view){
+            Intent intent = new Intent(BudgetDisplayPage.this, CameraX.class);
+            startActivity(intent);
+        }
+        //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
+
+        /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/
         //MULTIPLY BY double variable currencyRate in all data display to get functional of that
         //need to be able to query a user for all expenses, for graphical display
 
-}
+
+        //<---------------TOOLBAR STARTS HERE--------------->
+
+
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.display_page_menu, menu);
+            return true;
+        }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.miLogout:
+                Intent logOut = new Intent(BudgetDisplayPage.this, MainActivity.class);
+                //Launch second page of account setup
+                startActivity(logOut);
+                return true;
+            case R.id.miProfile:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+        //<---------------TOOLBAR ENDS HERE--------------->
+    }

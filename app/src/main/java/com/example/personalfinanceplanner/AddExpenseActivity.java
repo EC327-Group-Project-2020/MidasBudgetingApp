@@ -87,7 +87,6 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
                 loggedInUser = (User) getIntent().getSerializableExtra(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY);
             }
         }
-
         captureImageButton.setOnClickListener(this);
         submitExpenseButton.setOnClickListener(this);
     }

@@ -74,8 +74,10 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         }
 
         //add income to database
-        validUser = (User) getIntent().getExtras().getSerializable(AccountSetupPageOne.TAG_USER_SETUP1);
-        validUser.setMonthlyBudget(Float.parseFloat(budgetInput));
+
+        validUser = (User) getIntent().getExtras().getSerializable(TutorialActivity2.TAG_USER_TUTORIAL2);
+        validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
+
 
         //Launch new activity
         launchBudgetDisplayPage(validUser);
@@ -90,6 +92,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }
+
 
     //Function(s) to validate input
     /* Monthly income: can't be empty, must be digits,
