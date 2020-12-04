@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class AccountSetupPageTwo extends AppCompatActivity implements View.OnClickListener {
@@ -24,7 +26,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
     private Button finishBtn;
 
     //Textviews
-    private TextView monthlyIncome;
+    private TextView monthlyBudget;
     private TextView budgetGoal;
 
     //Tag for username when passed on to next activity
@@ -44,7 +46,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         finishBtn = (Button) findViewById(R.id.finish_button);
 
         //View
-        monthlyIncome = (TextView) findViewById(R.id.monthly_income);
+        monthlyBudget = (TextView) findViewById(R.id.monthly_income);
         budgetGoal = (TextView) findViewById(R.id.budget_goal);
 
         //set on click listener
@@ -57,23 +59,25 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
 
         //Get inputs
-        String incomeInput = monthlyIncome.getText().toString();
+        String budgetInput = monthlyBudget.getText().toString();
         String goalInput = budgetGoal.getText().toString();
 
         //validate
-        if(incomeEmpty(incomeInput)){
+        if(incomeEmpty(budgetInput)){
             Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.empty_income_field), Toast.LENGTH_LONG).show();
             return;
 
         }
-        else if (incomeNotNumber(incomeInput) || incomeNegativeOrZero(incomeInput)){
+        else if (incomeNotNumber(budgetInput) || incomeNegativeOrZero(budgetInput)){
             Toast.makeText(AccountSetupPageTwo.this,getResources().getString(R.string.income_val_invalid), Toast.LENGTH_LONG).show();
             return;
         }
 
         //add income to database
+
         validUser = (User) getIntent().getExtras().getSerializable(TutorialActivity2.TAG_USER_TUTORIAL2);
         validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
+
 
         //Launch new activity
         launchBudgetDisplayPage(validUser);

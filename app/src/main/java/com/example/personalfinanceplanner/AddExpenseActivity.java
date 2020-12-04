@@ -132,6 +132,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
             }
             case R.id.capture_image_button:
             {
+                goToCameraX(v);
                 break; //INSERT LOGIC FOR DARREN'S CAMERA WORK HERE, AND STORE IMAGE FILEPATH IN receiptImageFilepath
             }
         }
@@ -144,5 +145,10 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
+    }
+
+    public void goToCameraX (View view){
+        Intent intent = new Intent(AddExpenseActivity.this, CameraX.class);
+        startActivity(intent);
     }
 }

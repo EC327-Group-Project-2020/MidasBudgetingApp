@@ -70,7 +70,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
+
         //user passed on to continue initialisation of user
         launchBudgetDisplayPage(queriedUserList.get(0));
     }
