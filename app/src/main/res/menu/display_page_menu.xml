@@ -9,7 +9,6 @@
         android:icon="@drawable/ic_account"
         app:showAsAction="always"/>
 
-
     <item
         android:id="@+id/miLogout"
         android:title="Log Out"

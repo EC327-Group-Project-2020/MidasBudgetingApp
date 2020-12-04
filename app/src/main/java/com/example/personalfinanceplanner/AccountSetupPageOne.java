@@ -99,10 +99,10 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
 
 
         //launch into second page of account setup if all fields have been filled as required
-        launchAccountSetupPageTwo(usernameInput, passwordInput, questionOneChoice, answerOneInput, questionTwoChoice, answerTwoInput);
+        launchTutorialPage(usernameInput, passwordInput, questionOneChoice, answerOneInput, questionTwoChoice, answerTwoInput);
     }
 
-    private void launchAccountSetupPageTwo(String usernameInput, String passwordInput, String questionOneChoice, String answerOneInput,
+    private void launchTutorialPage(String usernameInput, String passwordInput, String questionOneChoice, String answerOneInput,
                                               String questionTwoChoice, String answerTwoInput) {
 
         //create User Entity to be stored in the database
@@ -111,13 +111,13 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         //store user in Room Database via dbViewModel methods
         accessDatabase.insert(createdUser);
 
-        Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, AccountSetupPageTwo.class);
+        Intent launchTutorialPage = new Intent(AccountSetupPageOne.this, TutorialActivity.class);
 
         //username passed on to continue initialisation of user
-        setupPageTwoActivity.putExtra(TAG_USER_SETUP1,createdUser);
+        launchTutorialPage .putExtra(TAG_USER_SETUP1,createdUser);
 
         //Launch second page of account setup
-        startActivity(setupPageTwoActivity);
+        startActivity(launchTutorialPage);
     }
 
 

@@ -70,20 +70,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        //if the username exists, check that the provided password matches that of the user object
-        /*else
-        {
-            User queriedUser = queriedUserList.get(0);
-            System.out.println(queriedUserList.get(0).getUsername());
-            String passwordOnRecord = queriedUser.getPassword();
-
-            if (!passwordOnRecord.equals(passwordInput))
-            {
-                Toast.makeText(LogInActivity.this, getResources().getString(R.string.incorrect_login_creds), Toast.LENGTH_LONG).show();
-                return;
-            }
-        }*/
-
         //NEED TO ADD/EDIT BELOW LOGIC TO LAUNCH THE DASHBOARD PAGE BASED ON THE INFORMATION ASSOCIATED WITH PROVIDED VALID USER
         //user passed on to continue initialisation of user
         launchBudgetDisplayPage(queriedUserList.get(0));
