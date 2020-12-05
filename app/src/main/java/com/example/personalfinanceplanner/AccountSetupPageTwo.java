@@ -7,13 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
-
 import static com.example.personalfinanceplanner.LogInActivity.TAG_USER_LOGIN;
 
 public class AccountSetupPageTwo extends AppCompatActivity implements View.OnClickListener {
@@ -55,7 +51,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         Bundle userInfo = getIntent().getExtras();
 
         if(userInfo != null)
-            newUser = (User) getIntent().getSerializableExtra(AccountSetupPageOne.TAG_USER_SETUP1);
+            newUser = (User) getIntent().getSerializableExtra(TutorialActivity2.TAG_USER_TUTORIAL2);
 
         //set on click listener
         finishBtn.setOnClickListener(this);
@@ -98,6 +94,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }
+
 
     //Function(s) to validate input
     /* Monthly income: can't be empty, must be digits,

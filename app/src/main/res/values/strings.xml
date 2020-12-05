@@ -104,7 +104,7 @@
     <string name="budget_step2">STEP 2: Review spending categories</string>
     <string name="budget_step3">STEP 3: Record your expenses</string>
     <string name="budget_step4">STEP 4: Track your Progress</string>
-    <string name="skip_tutorial">Skip the Tutorial</string>
+    <string name="next_page">Continue</string>
     <string name="continue_tutorial">Get Started >></string>
 
 </resources>

@@ -38,6 +38,8 @@
             android:exported="true" />
         <activity android:name=".LogInActivity" />
         <activity android:name=".AccountSetupPageTwo"/>
+        <activity android:name=".TutorialActivity"/>
+        <activity android:name=".TutorialActivity2"/>
     </application>
 
 </manifest>

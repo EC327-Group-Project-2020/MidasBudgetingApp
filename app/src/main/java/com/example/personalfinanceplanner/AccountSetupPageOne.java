@@ -1,8 +1,6 @@
 package com.example.personalfinanceplanner;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,8 +68,6 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         next_button.setOnClickListener(this);
     }
 
-
-
     @Override
     public void onClick(View v) {
 
@@ -100,18 +96,21 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput);
 
         //launch into second page of account setup if all fields have been filled as required
-        launchAccountSetupPageTwo(createdUser);
+
+        launchTutorialPage(createdUser);
     }
 
-    private void launchAccountSetupPageTwo(User user) {
+    private void launchTutorialPage(User user) {
 
-        Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, AccountSetupPageTwo.class);
+        //store user in Room Database via dbViewModel methods
 
-        //user passed on to continue creation of user
-        setupPageTwoActivity.putExtra(TAG_USER_SETUP1,user);
+        Intent launchTutorialPage = new Intent(AccountSetupPageOne.this, TutorialActivity.class);
+
+        //username passed on to continue initialisation of user
+        launchTutorialPage.putExtra(TAG_USER_SETUP1,createdUser);
 
         //Launch second page of account setup
-        startActivity(setupPageTwoActivity);
+        startActivity(launchTutorialPage);
     }
 
 

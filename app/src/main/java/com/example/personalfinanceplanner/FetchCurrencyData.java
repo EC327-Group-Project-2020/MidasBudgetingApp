@@ -30,7 +30,6 @@ public class FetchCurrencyData extends AsyncTask<Void, Void,Void> {
         String data = "";
         Log.d(TAG_DEBUG, "Inside background");
         try {
-
             URL symbolurl = new URL("https://api.exchangeratesapi.io/latest?base=USD");
             HttpsURLConnection HttpsURLConnection = (javax.net.ssl.HttpsURLConnection) symbolurl.openConnection();
             InputStream currencyInput = HttpsURLConnection.getInputStream();
@@ -78,7 +77,6 @@ public class FetchCurrencyData extends AsyncTask<Void, Void,Void> {
                 currNames.add(currNamesJSON.get(i).toString());
                 }
 
-
             //various exception catching
         } catch (MalformedURLException e) {
             Log.d(TAG_DEBUG, "Couldn't find url");
@@ -90,6 +88,7 @@ public class FetchCurrencyData extends AsyncTask<Void, Void,Void> {
             Log.d(TAG_DEBUG, "Couldn't convert to JSON");
             e.printStackTrace();
         }
+        Log.d(TAG_DEBUG, "At end of async");
         return null;
     }
 
