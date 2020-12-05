@@ -21,7 +21,8 @@
 
     <!-- Budget Display Activity Strings -->
     <string name="welcome_string">Welcome</string>
-    <string name="currency_header">Change Currency</string>
+    <string name="currency_header">My Saved Currencies</string>
+    <string name="currency_add">Add New Currency</string>
     <string name="expense_creation_success">Expense created!</string>
 
     <!-- Error Messages -->

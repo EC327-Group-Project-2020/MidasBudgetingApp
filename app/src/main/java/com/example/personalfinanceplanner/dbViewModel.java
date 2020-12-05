@@ -40,6 +40,8 @@ public class dbViewModel extends AndroidViewModel {
 
     public List<Expense> getUserExpenses(long userID) { return mRepository.getUserExpenses(userID); }
 
+    public List<Expense> getExpensesInCategory(long userID, String category) { return mRepository.getExpensesInCategory(userID, category); }
+
     //grabs user with given userID and all associated expenses
     public List<UserWithExpenses> getUserWithExpenses(long userID) {
         return mRepository.getUserWithExpenses(userID);

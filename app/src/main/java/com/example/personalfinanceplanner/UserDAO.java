@@ -47,6 +47,9 @@ public interface UserDAO {
     @Query("SELECT * FROM expense_info WHERE associated_userID LIKE :providedUserID") //returns list of expenses for a given user id
     List<Expense> getUserExpenses(long providedUserID);
 
+    @Query("SELECT * FROM expense_info WHERE associated_userID LIKE :providedUserID AND category LIKE :providedCategory")
+    List<Expense> getExpensesInCategory(long providedUserID, String providedCategory);
+
     @Transaction
     @Query("SELECT * FROM user_info WHERE userID LIKE :providedUserID") //returns the associated user with their expenses, based on the provided userID
     List<UserWithExpenses> getUserWithExpenses(long providedUserID);

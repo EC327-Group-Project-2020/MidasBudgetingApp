@@ -3,6 +3,7 @@ package com.example.personalfinanceplanner;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,6 +46,16 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
     //intent tag
     public static final String TAG_EXPENSE_CREATED = "user created expense";
+
+    //save state keys
+    private static final String KEY_EXPENSEAMOUNT = "expense amount key";
+    private static final String KEY_CATEGORY = "category key";
+    private static final String KEY_NOTES = "notes key";
+    private static final String KEY_LOGGEDINUSER = "key for user creating expense";
+
+    //flag for pausing expense form
+    private boolean pauseActivity = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +102,34 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
         submitExpenseButton.setOnClickListener(this);
     }
 
+    /*@Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {  //check for saved activity state - fills the fields with the values from previous activity if user opens camera
+            super.onRestoreInstanceState(savedInstanceState);
+
+            String savedExpenseAmount = savedInstanceState.getString(KEY_EXPENSEAMOUNT);
+            expenseAmountField.setText(savedExpenseAmount);
+
+            int savedCategoryPosition = savedInstanceState.getInt(KEY_CATEGORY);
+            categoryField.setSelection(savedCategoryPosition);
+
+            String savedNotes = savedInstanceState.getString(KEY_NOTES);
+            notesField.setText(savedNotes);
+
+            User savedUser = (User) savedInstanceState.getSerializable(KEY_LOGGEDINUSER);
+            loggedInUser = savedUser;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) { //supposed to save the values that were in the text edit fields when the user navigates to the camera
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString(KEY_EXPENSEAMOUNT, expenseAmountField.getText().toString());
+        savedInstanceState.putInt(KEY_CATEGORY, categoryField.getSelectedItemPosition());
+        savedInstanceState.putString(KEY_NOTES, notesField.getText().toString());
+        savedInstanceState.putSerializable(KEY_LOGGEDINUSER, loggedInUser);
+    }*/
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v)
@@ -133,7 +172,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
             case R.id.capture_image_button:
             {
                 goToCameraX(v);
-                break; //INSERT LOGIC FOR DARREN'S CAMERA WORK HERE, AND STORE IMAGE FILEPATH IN receiptImageFilepath
+                break;
             }
         }
     }

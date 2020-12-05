@@ -63,6 +63,8 @@ public class dbRepository {
             return mUserDao.getUserExpenses(userID);
         }
 
+        List<Expense> getExpensesInCategory(long userID, String category) { return mUserDao.getExpensesInCategory(userID, category); }
+
         List<UserWithExpenses> getUserWithExpenses(long userID) { //returns the list of expenses for the user with given userID
             return mUserDao.getUserWithExpenses(userID);
         }
