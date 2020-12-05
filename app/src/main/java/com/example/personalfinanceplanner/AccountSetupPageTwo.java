@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
+import static com.example.personalfinanceplanner.LogInActivity.TAG_USER_LOGIN;
 
 public class AccountSetupPageTwo extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +30,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
     //Tag for username when passed on to next activity
     public static final String TAG_USER_SETUP2 = "user from setup page 2";
     //var from last activity
-    private User validUser;
+    private User newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +46,12 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         //View
         monthlyBudget = (TextView) findViewById(R.id.monthly_income);
         budgetGoal = (TextView) findViewById(R.id.budget_goal);
+
+        //grab user created in phase 1 of account setup
+        Bundle userInfo = getIntent().getExtras();
+
+        if(userInfo != null)
+            newUser = (User) getIntent().getSerializableExtra(TutorialActivity2.TAG_USER_TUTORIAL2);
 
         //set on click listener
         finishBtn.setOnClickListener(this);
@@ -73,22 +77,20 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        //add income to database
-
-        validUser = (User) getIntent().getExtras().getSerializable(TutorialActivity2.TAG_USER_TUTORIAL2);
-        validUser.setMonthlyIncome(Double.parseDouble(incomeInput));
-
+        newUser.setMonthlyBudget(Float.parseFloat(budgetInput));
+        accessDatabase.insert(newUser);
 
         //Launch new activity
-        launchBudgetDisplayPage(validUser);
+        launchBudgetDisplayPage(newUser);
 
     }
 
     //Function to launch budget display page
-    private void launchBudgetDisplayPage(User validUser) {
+    private void launchBudgetDisplayPage(User newUser) {
+
         Intent setupBudgetDisplayPage = new Intent(AccountSetupPageTwo.this, BudgetDisplayPage.class);
         //setupBudgetDisplayPage.putExtra("valid_user", validUser);
-        setupBudgetDisplayPage.putExtra(TAG_USER_SETUP2,validUser);
+        setupBudgetDisplayPage.putExtra(TAG_USER_SETUP2, newUser);
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }

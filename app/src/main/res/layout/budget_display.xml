@@ -10,10 +10,11 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent
+">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,19 +25,17 @@
                 android:layout_width="127dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="64dp"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/button_border"
-                app:layout_constraintBottom_toTopOf="@+id/total_expenses_trendline"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/total_expenses_trendline"
                 android:layout_width="364dp"
                 android:layout_height="269dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="61dp"
-                android:layout_marginEnd="25dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="146dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/currencyChoice" />
 
@@ -44,13 +43,11 @@
                 android:id="@+id/currencyMenu"
                 android:layout_width="128dp"
                 android:layout_height="37dp"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="104dp"
-                android:layout_marginBottom="62dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/button_border"
                 android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toTopOf="@+id/total_expenses_trendline"
-                app:layout_constraintStart_toEndOf="@+id/currencyChoice"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -68,21 +65,73 @@
                 android:id="@+id/daily_expenses_trendline"
                 android:layout_width="364dp"
                 android:layout_height="269dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="47dp"
-                android:layout_marginEnd="25dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="88dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/total_expenses_trendline" />
 
             <TextView
                 android:id="@+id/currencyHeader"
-                android:layout_width="155dp"
-                android:layout_height="34dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="@string/currency_header"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toTopOf="@+id/currencyChoice"
-                app:layout_constraintStart_toStartOf="@+id/currencyChoice" />
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/currencyAdderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:text="@string/currency_add"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toTopOf="@+id/currencyMenu"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/monthHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:textSize="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currencyChoice" />
+
+            <TextView
+                android:id="@+id/expenses_per_day_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Total Expenses Trend"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/total_expenses_trendline"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/total_expenses_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Expenses Per Day"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/daily_expenses_trendline"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/categories_pieChart"
+                android:layout_width="364dp"
+                android:layout_height="269dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="88dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/daily_expenses_trendline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
