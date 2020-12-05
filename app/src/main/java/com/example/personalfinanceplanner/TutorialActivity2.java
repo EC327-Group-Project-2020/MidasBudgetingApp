@@ -19,6 +19,8 @@ public class TutorialActivity2 extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutorial_intro2);
+        //TutorialActivity2.this.getActionBar().hide();
+
         getStarted = (Button) findViewById(R.id.get_started_btn);
         getStarted.setOnClickListener(this);
 

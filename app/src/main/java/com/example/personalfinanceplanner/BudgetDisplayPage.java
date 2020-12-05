@@ -81,12 +81,12 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     private TextView welcomeHeader;
     private TextView breakdownHeader;
 
-    //variable to store current currency rate
+    //variable to store current currency rate and current currency name
     private Double currencyRate;
+    private String currencyName;
 
     //declare pie chart
     PieChart pieChart;
-
 
     //ACTIONS
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -95,6 +95,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_display);
+        BudgetDisplayPage.this.setTitle(R.string.app_title);
 
         Log.d(TAG_DEBUG, "Loading budget page!");
 
@@ -117,7 +118,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             else if (getIntent().getSerializableExtra(TAG_EXPENSE_CREATED) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(TAG_EXPENSE_CREATED);
             }
-
+            else if(getIntent().getSerializableExtra(ProfileSettingsActivity.TAG_USER_PROFILE_PAGE) != null){
+                loggedInUser = (User) getIntent().getSerializableExtra(ProfileSettingsActivity.TAG_USER_PROFILE_PAGE);
+            }
             else {
                 loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
                 }
@@ -131,9 +134,6 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             System.out.println("ERROR: User not received. Login forbidden."); //this should not be possible, but just in case
 
 
-        //welcoming our customers
-
-                //------WELCOME HEADER WITH USERNAME------//
 
         //------WELCOME HEADER WITH USERNAME------//
         welcomeHeader = (TextView) findViewById(R.id.welcomeBanner);
@@ -575,8 +575,8 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         currCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currencyName = currCurrency.getSelectedItem().toString();
                 String translationCurrency = currCurrency.getSelectedItem().toString();
-
                 //get correct currency rate
                 if (translationCurrency.equals("USD")) {
                     currencyRate = 1.0;
@@ -693,6 +693,10 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 startActivity(logOut);
                 return true;
             case R.id.miProfile:
+                Intent goToSettings = new Intent(BudgetDisplayPage.this, ProfileSettingsActivity.class);
+                goToSettings.putExtra(TAG_USER_BUDGET_DISPLAY, loggedInUser);
+                //Launch second page of account setup
+                startActivity(goToSettings);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

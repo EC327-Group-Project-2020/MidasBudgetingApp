@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -42,14 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        l = findViewById(R.id.list);
-//        ArrayAdapter<String> arr;
-//        arr
-//                = new ArrayAdapter<String>(
-//                this,
-//                R.layout.support_simple_spinner_dropdown_item,
-//                tutorials);
-//        l.setAdapter(arr);
+        //MainActivity.this.getActionBar().hide();
 
     //set button parameters
         signInButton = (Button) findViewById(R.id.sign_in_button);
