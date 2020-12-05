@@ -24,7 +24,9 @@ public class dbViewModel extends AndroidViewModel {
 
     public void insertExpense(Expense expense) { mRepository.insertExpense(expense); }
 
-    public void delete(User user) { mRepository.delete(user); } //use to delete a user
+    public void deleteUser(User user) { mRepository.deleteUser(user); } //use to delete a user
+
+    public void deleteExpense(Expense expense) { mRepository.deleteExpense(expense); }
 
     public void update(User user) { mRepository.update(user); } //use to update a user
 
