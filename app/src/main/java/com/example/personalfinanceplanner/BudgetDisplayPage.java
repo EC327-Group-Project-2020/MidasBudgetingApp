@@ -13,7 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.util.StringUtil;
+
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
@@ -21,13 +24,20 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static com.example.personalfinanceplanner.AddExpenseActivity.TAG_EXPENSE_CREATED;
 import static com.example.personalfinanceplanner.LogInActivity.TAG_USER_LOGIN;
 
@@ -67,9 +77,13 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
     //declare welcome header text view
     private TextView welcomeHeader;
+    private TextView breakdownHeader;
 
     //variable to store current currency rate
     private Double currencyRate;
+
+    //declare pie chart
+    PieChart pieChart;
 
 
     //ACTIONS
@@ -121,8 +135,15 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         welcomeHeader = (TextView) findViewById(R.id.welcomeBanner);
         String txt = welcomeHeader.getText().toString();
-        txt = txt + " " + userName + "!";
+        txt = txt + ", " + userName + "!";
         welcomeHeader.setText(txt);
+
+
+        //breakdown header
+        breakdownHeader = (TextView) findViewById(R.id.monthHeader);
+        String dynamicMonthText = "Your " + OffsetDateTime.now(ZoneId.systemDefault()).getMonth().toString().substring(0,1) +
+                OffsetDateTime.now(ZoneId.systemDefault()).getMonth().toString().substring(1).toLowerCase() + " Breakdown";
+        breakdownHeader.setText(dynamicMonthText);
 
         //<--------------EXPENSE GRAPHING----------------------->
 
@@ -190,18 +211,20 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         expensesPerDayLineChart.setData(data); //draw chart
 
         //chart styling
+        expensesPerDayLineChart.setAutoScaleMinMaxEnabled(true);
         expensesPerDayLineChart.setVisibleXRange(1, daysInCurrentMonth);
-        expensesPerDayLineChart.setVisibleYRange(0, maxExpense + 100, YAxis.AxisDependency.LEFT);
         expensesPerDayLineChart.setDrawBorders(true);
         expensesPerDayLineChart.setBorderColor(Color.parseColor("#434343"));
         expensesPerDayLineChart.setDescription(null);
+        expensesPerDayLineChart.setExtraBottomOffset(2f);
+        expensesPerDayLineChart.setExtraLeftOffset(30f);
         legend.setEnabled(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         yAxisRight.setEnabled(false);
         yAxisRight.setDrawGridLinesBehindData(false);
         yAxisLeft.setDrawGridLinesBehindData(false);
-        expensesPerDayLineChart.animateXY(500,500);
+        yAxisLeft.setAxisMinimum(0);
         xAxis.setAxisLineColor(Color.parseColor("#434343"));
         yAxisLeft.setAxisLineColor(Color.parseColor("#434343"));
         xAxis.setAxisLineWidth(2f);
@@ -209,8 +232,6 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         xAxis.setTextSize(14);
         yAxisLeft.setTextSize(14);
         yAxisLeft.setYOffset(10);
-
-        //NEED TO MAKE SURE AXES SHOW AMOUNT IN CORRECT CURRENCY
 
         //END OF EXPENSE PER DAY CHART IMPLEMENTATION
 
@@ -260,7 +281,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         }
 
         float monthlyBudget = loggedInUser.getMonthlyBudget();
-        float maxYvalue = (monthlyBudget > runningExpenseSumPerDay[currentDayInMonth]) ? (float) loggedInUser.getMonthlyBudget() : (float) runningExpenseSumPerDay[currentDayInMonth]; //sets the max y value of the graph as either the budget or your current expense total, depending on which is bigger
+        float maxYvalue = (monthlyBudget > runningExpenseSumPerDay[currentDayInMonth-1]) ? loggedInUser.getMonthlyBudget() : (float) runningExpenseSumPerDay[currentDayInMonth]; //sets the max y value of the graph as either the budget or your current expense total, depending on which is bigger
 
         LineDataSet dataSet2 = new LineDataSet(dataPointsSet2, null); // group data points as set for line graph
         dataSet2.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -280,16 +301,36 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             dataSet2.setCircleColor(Color.parseColor("#ff0033"));
         }
 
+        //plot dynamic budget line
+        float[] budgetArray = new float[daysInCurrentMonth];
+        List<Entry> budgetPoints = new ArrayList<Entry>();
+
+        for (int i = 0; i <= daysInCurrentMonth; i++)
+            budgetPoints.add(new Entry((i+1), monthlyBudget));
+
+        //budget line styling
+        LineDataSet budgetSet = new LineDataSet(budgetPoints, "Your Monthly Budget");
+        budgetSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        budgetSet.setLineWidth(5f); //default is 1f
+        budgetSet.setDrawCircles(false);
+        budgetSet.setDrawValues(false);
+        budgetSet.setColor(Color.parseColor("#FED215"));
+
+
         ArrayList<ILineDataSet> lineDataSets2 = new ArrayList<ILineDataSet>();
         lineDataSets2.add(dataSet2);
+        lineDataSets2.add(budgetSet);
         LineData data2 = new LineData(lineDataSets2);
         totalExpensesOverTimeChart.setData(data2); //draw chart
 
         //chart styling
+        totalExpensesOverTimeChart.setAutoScaleMinMaxEnabled(true);
         totalExpensesOverTimeChart.setVisibleXRange(1, daysInCurrentMonth);
         totalExpensesOverTimeChart.setDrawBorders(true);
         totalExpensesOverTimeChart.setBorderColor(Color.parseColor("#434343"));
         totalExpensesOverTimeChart.setDescription(null);
+        totalExpensesOverTimeChart.setExtraBottomOffset(2f);
+        totalExpensesOverTimeChart.setExtraLeftOffset(30f);
         legend2.setEnabled(false);
         xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis2.setDrawGridLines(false);
@@ -297,8 +338,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         yAxisRight2.setDrawGridLinesBehindData(false);
         yAxisLeft2.setDrawGridLinesBehindData(false);
         yAxisLeft2.setAxisMinimum(0);
-        yAxisLeft2.setAxisMaximum(maxYvalue + 200); //plus 100 is just to give space above max value on graph
-        totalExpensesOverTimeChart.animateXY(500,500);
+        yAxisLeft2.setSpaceTop(10);
         xAxis2.setAxisLineColor(Color.parseColor("#434343"));
         yAxisLeft2.setAxisLineColor(Color.parseColor("#434343"));
         xAxis2.setAxisLineWidth(2f);
@@ -308,12 +348,172 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         xAxis2.setXOffset(10);
         yAxisLeft2.setYOffset(10);
 
-        //add budget line to chart
-        LimitLine ll = new LimitLine(monthlyBudget, "Your Monthly Budget");
-        totalExpensesOverTimeChart.getAxisLeft().addLimitLine(ll);
-        ll.setLineColor(Color.parseColor("#FED215"));
-        ll.setLineWidth(3f);
-          
+        //END OF CHART 2 IMPLEMENTATION
+
+        //BEGINNING OF PIE CHART IMPLEMENTATION
+
+        pieChart = findViewById(R.id.categories_pieChart);
+
+        List<PieEntry> pieEntries = new ArrayList<>();
+
+        //need to calculate the percentages for each pie slice
+
+        //declare variables to hold category percents
+        float entertainmentPercentage;
+        float educationPercentage;
+        float shoppingPercentage;
+        float personalCarePercentage;
+        float healthAndFitnessPercentage;
+        float kidsPercentage;
+        float foodAndDiningPercentage;
+        float giftsAndDonationsPercentage;
+        float investmentsPercentage;
+        float billsAndUtilitiesPercentage;
+        float autoAndTransportPercentage;
+        float travelPercentage;
+        float feesAndChargesPercentage;
+        float businessServicesPercentage;
+        float taxesPercentage;
+
+        //running sums per category
+        float entertainment = 0;
+        float education = 0;
+        float shopping = 0;
+        float personalCare = 0;
+        float healthAndFitness = 0;
+        float kids = 0;
+        float foodAndDining = 0;
+        float giftsAndDonations = 0;
+        float investments = 0;
+        float billsAndUtilities = 0;
+        float autoAndTransport = 0;
+        float travel = 0;
+        float feesAndCharges = 0;
+        float businessServices = 0;
+        float taxes = 0;
+
+        //loop through all expenses for the month, check category, add to temporary sum for that category
+        //then divide each by total to get respective percentage
+        for (int i = 0; i < userExpenses.size(); i++) { //goes through entire list of user's expenses, and populates expensesPerDay array with expenses on each day
+
+            Expense expenseRecord = userExpenses.get(i);
+
+            int monthOfExpense = expenseRecord.getTimestamp().getMonthValue();
+            int yearOfExpense = expenseRecord.getTimestamp().getYear();
+            int currentMonth = (OffsetDateTime.now(ZoneId.systemDefault())).getMonthValue();
+            int currentYear = (OffsetDateTime.now(ZoneId.systemDefault())).getYear();
+
+            if (monthOfExpense == currentMonth && yearOfExpense == currentYear) { //checks to see if the expense in question occurred in the current calendar month and year
+
+                switch (expenseRecord.getCategory()) {
+                    case "Entertainment":
+                        entertainment += (float) expenseRecord.getAmount();
+                        break;
+                    case "Education":
+                        education += (float) expenseRecord.getAmount();
+                        break;
+                    case "Shopping":
+                        shopping += (float) expenseRecord.getAmount();
+                        break;
+                    case "Personal Care":
+                        personalCare += (float) expenseRecord.getAmount();
+                        break;
+                    case "Health and Fitness":
+                        healthAndFitness += (float) expenseRecord.getAmount();
+                        break;
+                    case "Kids":
+                        kids += (float) expenseRecord.getAmount();
+                        break;
+                    case "Food & Dining":
+                        foodAndDining += (float) expenseRecord.getAmount();
+                        break;
+                    case "Gifts & Donations":
+                        giftsAndDonations += (float) expenseRecord.getAmount();
+                        break;
+                    case "Investments":
+                        investments += (float) expenseRecord.getAmount();
+                        break;
+                    case "Bills & Utilities":
+                        billsAndUtilities += (float) expenseRecord.getAmount();
+                        break;
+                    case "Auto & Transport":
+                        autoAndTransport += (float) expenseRecord.getAmount();
+                        break;
+                    case "Travel":
+                        travel += (float) expenseRecord.getAmount();
+                        break;
+                    case "Fees & Charges":
+                        feesAndCharges += (float) expenseRecord.getAmount();
+                        break;
+                    case "Business Services":
+                        businessServices += (float) expenseRecord.getAmount();
+                        break;
+                    case "Taxes":
+                        taxes += (float) expenseRecord.getAmount();
+                        break;
+                }
+            }
+        }
+
+        //calculate percentages per category
+
+        entertainmentPercentage = (float) (entertainment/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        educationPercentage = (float) (education/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        shoppingPercentage = (float) (shopping/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        personalCarePercentage = (float) (personalCare/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        healthAndFitnessPercentage  = (float) (healthAndFitness/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        kidsPercentage = (float) (kids/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        foodAndDiningPercentage = (float) (foodAndDining/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        giftsAndDonationsPercentage = (float) (giftsAndDonations/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        investmentsPercentage = (float) (investments/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        billsAndUtilitiesPercentage = (float) (billsAndUtilities/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        autoAndTransportPercentage = (float) (autoAndTransport/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        travelPercentage = (float) (travel/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        feesAndChargesPercentage = (float) (feesAndCharges/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        businessServicesPercentage = (float) (businessServices/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+        taxesPercentage = (float) (taxes/runningExpenseSumPerDay[currentDayInMonth-1]) * 100;
+
+        //fill data
+
+        if (entertainmentPercentage > 0) pieEntries.add(new PieEntry(entertainmentPercentage, "Entertainment"));
+        if (educationPercentage > 0) pieEntries.add(new PieEntry(educationPercentage, "Education"));
+        if (shoppingPercentage > 0) pieEntries.add(new PieEntry(shoppingPercentage, "Shopping"));
+        if (personalCarePercentage > 0) pieEntries.add(new PieEntry(personalCarePercentage, "Personal Care"));
+        if (healthAndFitnessPercentage > 0) pieEntries.add(new PieEntry(healthAndFitnessPercentage, "Health & Fitness"));
+        if (kidsPercentage > 0) pieEntries.add(new PieEntry(kidsPercentage, "Kids"));
+        if (foodAndDiningPercentage > 0) pieEntries.add(new PieEntry(foodAndDiningPercentage, "Food & Dining"));
+        if (giftsAndDonationsPercentage > 0) pieEntries.add(new PieEntry(giftsAndDonationsPercentage, "Gifts & Donations"));
+        if (investmentsPercentage > 0) pieEntries.add(new PieEntry(investmentsPercentage, "Investments"));
+        if (billsAndUtilities > 0) pieEntries.add(new PieEntry(billsAndUtilitiesPercentage, "Bills & Utilities"));
+        if (autoAndTransportPercentage > 0) pieEntries.add(new PieEntry(autoAndTransportPercentage, "Auto & Transport"));
+        if (travelPercentage > 0) pieEntries.add(new PieEntry(travelPercentage, "Travel"));
+        if (feesAndChargesPercentage > 0) pieEntries.add(new PieEntry(feesAndChargesPercentage, "Fees & Charges"));
+        if (businessServicesPercentage > 0) pieEntries.add(new PieEntry(businessServicesPercentage, "Business Services"));
+        if (taxesPercentage > 0) pieEntries.add(new PieEntry(taxesPercentage, "Taxes"));
+
+        //compile in data set
+        PieDataSet pieSet = new PieDataSet(pieEntries, null);
+        pieSet.setSliceSpace(5f);
+        pieSet.setSelectionShift(5f);
+        pieSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        PieData pieData = new PieData(pieSet);
+        pieData.setValueTextSize(14f);
+        pieData.setValueTextColor(Color.WHITE);
+
+        pieChart.setData(pieData);
+        pieChart.invalidate(); // refresh
+
+        pieChart.setDrawEntryLabels(true);
+        pieChart.setEntryLabelColor(Color.GRAY);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setUsePercentValues(true);
+        pieChart.setExtraOffsets(5, 5, 5, 5);
+        pieChart.setDescription(null);
+        Legend pieLegend = pieChart.getLegend();
+        pieLegend.setEnabled(false);
+
         //<--------------GETTING DATABASE STUFF ENDS HERE-------------->
 
 
@@ -380,6 +580,25 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 if(translationCurrency.equals("USD")){
                     currencyRate = 1.0;
                     Log.d(TAG_DEBUG, "currency is usd, rate is: " +currencyRate);
+
+                    //update graphical display back to USD from other currencies
+                    for (int i = 0; i < dataPoints.size(); i++)
+                        dataPoints.set(i, new Entry((i+1), (float) (expensesPerDay[i])));
+
+                    for (int i = 0; i < dataPointsSet2.size(); i++)
+                        dataPointsSet2.set(i, new Entry((i+1), (float) (runningExpenseSumPerDay[i])));
+
+                    for (int i = 0; i <= daysInCurrentMonth; i++)
+                        budgetPoints.set(i, new Entry((i+1), monthlyBudget));
+
+                    budgetSet.notifyDataSetChanged();
+                    dataSet.notifyDataSetChanged();
+                    dataSet2.notifyDataSetChanged();
+                    expensesPerDayLineChart.notifyDataSetChanged();
+                    totalExpensesOverTimeChart.notifyDataSetChanged();
+                    expensesPerDayLineChart.invalidate();
+                    totalExpensesOverTimeChart.invalidate();
+
                 }
                 else{
                     Log.d(TAG_DEBUG, "namesRatesArray size: " + namesRates.size());
@@ -389,7 +608,25 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                             Log.d(TAG_DEBUG, "currency is "+namesRates.get(i).get(CURRENCYNAME)+", rate is" + currencyRate);
                         }
                     }
+                    //change graphical displays based on currency rates
+                    for (int i = 0; i < dataPoints.size(); i++)
+                        dataPoints.set(i, new Entry((i+1), (float) (expensesPerDay[i]*currencyRate)));
+
+                    for (int i = 0; i < dataPointsSet2.size(); i++)
+                        dataPointsSet2.set(i, new Entry((i+1), (float) (runningExpenseSumPerDay[i]*currencyRate)));
+
+                    for (int i = 0; i <= daysInCurrentMonth; i++)
+                        budgetPoints.set(i, new Entry((i+1), (float) (monthlyBudget * currencyRate)));
+
+                    budgetSet.notifyDataSetChanged();
+                    dataSet.notifyDataSetChanged();
+                    dataSet2.notifyDataSetChanged();
+                    expensesPerDayLineChart.notifyDataSetChanged();
+                    totalExpensesOverTimeChart.notifyDataSetChanged();
+                    expensesPerDayLineChart.invalidate();
+                    totalExpensesOverTimeChart.invalidate();
                 }
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -434,7 +671,6 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
             //Launch second page of account setup
             startActivity(setupExpenseCreation);
         }
-
     //<---------------EXPENSE ADDITION FEATURE ENDS HERE--------------->
 
     /*TODO ADD REST OF FUNCTIONALITY TO THE PAGE*/

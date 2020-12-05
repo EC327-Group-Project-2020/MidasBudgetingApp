@@ -2,6 +2,7 @@ package com.example.personalfinanceplanner
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -95,6 +96,10 @@ class CameraX : AppCompatActivity() {
                 val msg = "Photo capture succeeded: $savedUri"
                 Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, msg)
+
+                val intent = Intent(this@CameraX, AddExpenseActivity::class.java)
+                intent.putExtra("photoURI", savedUri)
+                startActivity(intent)
             }
         })
     }

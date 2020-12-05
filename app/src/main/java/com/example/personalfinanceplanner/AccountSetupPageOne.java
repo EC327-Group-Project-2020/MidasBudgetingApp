@@ -97,24 +97,18 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
             return;
         }
 
-
-        //launch into second page of account setup if all fields have been filled as required
-        launchAccountSetupPageTwo(usernameInput, passwordInput, questionOneChoice, answerOneInput, questionTwoChoice, answerTwoInput);
-    }
-
-    private void launchAccountSetupPageTwo(String usernameInput, String passwordInput, String questionOneChoice, String answerOneInput,
-                                              String questionTwoChoice, String answerTwoInput) {
-
-        //create User Entity to be stored in the database
         User createdUser = new User(usernameInput, passwordInput, questionOneChoice, questionTwoChoice, answerOneInput, answerTwoInput);
 
-        //store user in Room Database via dbViewModel methods
-        accessDatabase.insert(createdUser);
+        //launch into second page of account setup if all fields have been filled as required
+        launchAccountSetupPageTwo(createdUser);
+    }
+
+    private void launchAccountSetupPageTwo(User user) {
 
         Intent setupPageTwoActivity = new Intent(AccountSetupPageOne.this, AccountSetupPageTwo.class);
 
-        //username passed on to continue initialisation of user
-        setupPageTwoActivity.putExtra(TAG_USER_SETUP1,createdUser);
+        //user passed on to continue creation of user
+        setupPageTwoActivity.putExtra(TAG_USER_SETUP1,user);
 
         //Launch second page of account setup
         startActivity(setupPageTwoActivity);
