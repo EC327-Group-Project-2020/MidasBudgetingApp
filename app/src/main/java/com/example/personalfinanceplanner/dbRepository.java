@@ -22,6 +22,7 @@ public class dbRepository {
         }
 
         void insert(User user) {
+
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 mUserDao.insertUser(user);
             });
@@ -53,6 +54,10 @@ public class dbRepository {
 
         List<User> queryUser(String username) { //return non-Live version of given user for non-UI dependent data
             return mUserDao.loadGivenUser(username);
+        }
+
+        List<User> queryUserUsingID(long userID) { //return non-Live version of given user for non-UI dependent data
+            return mUserDao.loadGivenUserUsingID(userID);
         }
 
         LiveData<List<User>> queryUserLive(String username) { //return LiveData version of given user

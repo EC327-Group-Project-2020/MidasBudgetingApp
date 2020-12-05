@@ -17,7 +17,7 @@ public interface UserDAO {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUser(User user); //for adding a User to the Room database
+    long insertUser(User user); //for adding a User to the Room database; returns a long type of the new rowID
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExpense(Expense expense); //for adding expenses
@@ -35,6 +35,9 @@ public interface UserDAO {
     //loads non-live list of Users with the given username
     @Query("SELECT * FROM user_info WHERE username LIKE :providedUsername")
     List<User> loadGivenUser(String providedUsername);
+
+    @Query("SELECT * FROM user_info WHERE userID LIKE :providedUserID")
+    List<User> loadGivenUserUsingID(long providedUserID);
 
     //loads the list of User entities that have the provided username, with ability to update UI via LiveData
     @Query("SELECT * FROM user_info WHERE username LIKE :providedUsername")

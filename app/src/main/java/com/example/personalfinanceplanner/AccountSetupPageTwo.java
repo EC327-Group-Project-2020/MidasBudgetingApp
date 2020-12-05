@@ -29,6 +29,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
 
     //Tag for username when passed on to next activity
     public static final String TAG_USER_SETUP2 = "user from setup page 2";
+
     //var from last activity
     private User newUser;
 
@@ -51,7 +52,7 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         Bundle userInfo = getIntent().getExtras();
 
         if(userInfo != null)
-            newUser = (User) getIntent().getSerializableExtra(TutorialActivity2.TAG_USER_TUTORIAL2);
+            newUser = (User) getIntent().getExtras().getSerializable(TutorialActivity.TAG_USER_TUTORIAL);;
 
         //set on click listener
         finishBtn.setOnClickListener(this);
@@ -80,15 +81,15 @@ public class AccountSetupPageTwo extends AppCompatActivity implements View.OnCli
         accessDatabase.insert(newUser);
 
         //Launch new activity
-        launchBudgetDisplayPage(newUser);
+        launchBudgetDisplayPage(newUser.getUsername());
     }
 
     //Function to launch budget display page
-    private void launchBudgetDisplayPage(User newUser) {
+    private void launchBudgetDisplayPage(String newUserUsername) {
 
         Intent setupBudgetDisplayPage = new Intent(AccountSetupPageTwo.this, BudgetDisplayPage.class);
         //setupBudgetDisplayPage.putExtra("valid_user", validUser);
-        setupBudgetDisplayPage.putExtra(TAG_USER_SETUP2, newUser);
+        setupBudgetDisplayPage.putExtra(TAG_USER_SETUP2, newUserUsername);
         //Launch second page of account setup
         startActivity(setupBudgetDisplayPage);
     }

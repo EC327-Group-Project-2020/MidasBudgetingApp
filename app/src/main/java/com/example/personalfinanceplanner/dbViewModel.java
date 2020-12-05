@@ -34,6 +34,10 @@ public class dbViewModel extends AndroidViewModel {
         return mRepository.queryUser(username);
     }
 
+    public List<User> grabUserUsingID(long userID) { //runs on main thread, so only used on login page where query is minimal. IF TIME PERMITS, MAY SWAP USERNAME AND PASS OUT OF DB AND ERASE THIS METHOD
+        return mRepository.queryUserUsingID(userID);
+    }
+
     public LiveData<List<User>> grabUserLive(String username) { //search the database for the given user
         return mRepository.queryUserLive(username);
     }

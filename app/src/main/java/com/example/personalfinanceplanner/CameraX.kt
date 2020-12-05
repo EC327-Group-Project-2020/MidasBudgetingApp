@@ -28,6 +28,11 @@ typealias LumaListener = (luma: Double) -> Unit
 
 class CameraX : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
+    private var unfinishedExpenseData: tempExpense? = null
+
+    object Tag {
+        @JvmField var TAG_EXPENSE_DATA_WITH_PHOTO: String = "expense data with photo"
+    }
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
@@ -62,6 +67,8 @@ class CameraX : AppCompatActivity() {
                     this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
+        unfinishedExpenseData = intent.getSerializableExtra(AddExpenseActivity.TAG_UNFINISHED_EXPENSE) as? tempExpense
+
         // Set up the listener for take photo button
         camera_capture_button.setOnClickListener { takePhoto() }
 
@@ -92,16 +99,17 @@ class CameraX : AppCompatActivity() {
             }
 
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                val savedUri = Uri.fromFile(photoFile)
-                val msg = "Photo capture succeeded: $savedUri"
+                val msg = "Photo captured!"
                 Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, msg)
-
-                val intent = Intent(this@CameraX, AddExpenseActivity::class.java)
-                intent.putExtra("photoURI", savedUri)
-                startActivity(intent)
             }
         })
+
+        unfinishedExpenseData?.setReceiptImageFilepath(photoFile.toURI().toString())
+
+        val intent = Intent(this@CameraX, AddExpenseActivity::class.java)
+        intent.putExtra(Tag.TAG_EXPENSE_DATA_WITH_PHOTO, unfinishedExpenseData)
+        startActivity(intent)
     }
 
     private fun startCamera() {
