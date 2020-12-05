@@ -40,9 +40,15 @@ public class dbRepository {
             });
         }
 
-        void delete(User user) {
+        void deleteUser(User user) {
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 mUserDao.deleteUser(user);
+            });
+        }
+
+        void deleteExpense(Expense expense) {
+            AppDatabase.databaseWriteExecutor.execute(() -> {
+                mUserDao.deleteExpense(expense);
             });
         }
 
