@@ -37,7 +37,17 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="146dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currencyChoice" />
+                app:layout_constraintTop_toBottomOf="@+id/currencyChoice" >
+            </com.github.mikephil.charting.charts.LineChart>
+
+            <TextView
+                android:id="@+id/currencyLabelGraph1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expenses_per_day_title" />
 
             <Spinner
                 android:id="@+id/currencyMenu"
@@ -132,6 +142,50 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/daily_expenses_trendline" />
+
+            <TextView
+                android:id="@+id/piechart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Category Breakdown"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/categories_pieChart"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/daysLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="178dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="178dp"
+                android:text="Day"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_expenses_trendline" />
+
+            <TextView
+                android:id="@+id/currencyLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_expenses_title" />
+
+            <TextView
+                android:id="@+id/daysLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="178dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="178dp"
+                android:text="Day"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_expenses_trendline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -145,6 +199,6 @@
         app:backgroundTint="@color/gold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/plus" />
+        app:srcCompat="@drawable/ic_plus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

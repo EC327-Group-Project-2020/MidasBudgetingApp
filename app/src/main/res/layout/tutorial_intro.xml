@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:backgroundTint="#A1A1A1"
+    android:backgroundTint="#E9EFDA7D"
     android:paddingLeft="16dp"
     android:paddingTop="45dp"
     android:paddingRight="16dp">
@@ -31,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/meet_midas"
+                android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="#000000"
                 android:textSize="34sp"
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView6"
                 android:text="@string/tutorial_intro"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textSize="24sp" />
 
             <TextView
@@ -52,7 +53,8 @@
                 android:layout_below="@id/textView7"
                 android:layout_marginTop="10dp"
                 android:text="@string/budget_intro"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -61,7 +63,9 @@
                 android:layout_below="@id/textView8"
                 android:layout_marginTop="10dp"
                 android:text="@string/budget_intro_2"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
@@ -69,7 +73,8 @@
                 android:layout_below="@id/textView9"
                 android:layout_marginTop="10dp"
                 android:text="@string/budget_intro_3"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -77,8 +82,8 @@
         android:id="@+id/continue_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/cardView1"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="25dp"
         android:layout_marginRight="16dp"
         android:text="@string/next_page" />

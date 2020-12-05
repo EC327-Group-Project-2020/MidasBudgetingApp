@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
@@ -33,6 +34,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
     private TextView categoryHeader;
     private TextView uploadReceiptHeader;
     private TextView notesHeader;
+    private TextView filepathDisplay;
 
     //declare text edit fields
     private EditText expenseAmountField;
@@ -43,18 +45,16 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
     //declare logged in user
     private User loggedInUser;
+    private tempExpense tempExpenseWithPhotoData = null;
 
     //intent tag
     public static final String TAG_EXPENSE_CREATED = "user created expense";
 
-    //save state keys
-    private static final String KEY_EXPENSEAMOUNT = "expense amount key";
-    private static final String KEY_CATEGORY = "category key";
-    private static final String KEY_NOTES = "notes key";
-    private static final String KEY_LOGGEDINUSER = "key for user creating expense";
+    //tag for passing unfinished expenses
+    public static final String TAG_UNFINISHED_EXPENSE = "data about expense";
 
-    //flag for pausing expense form
-    private boolean pauseActivity = false;
+    //flag for indicating whether photo data is included
+    private boolean containsPhoto = false;
 
 
     @Override
@@ -76,6 +76,7 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
         categoryHeader = (TextView) findViewById(R.id.category);
         uploadReceiptHeader = (TextView) findViewById(R.id.receipt_upload);
         notesHeader = (TextView) findViewById(R.id.notes);
+        filepathDisplay = (TextView) findViewById(R.id.filepath);
 
         //initialize text edit fields
         expenseAmountField = (EditText) findViewById(R.id.expense_field);
@@ -88,46 +89,28 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
         categoryListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoryField.setAdapter(categoryListAdapter);
 
-
         //grabs logged in user from budget display page
-        Bundle passedUser = getIntent().getExtras();
+        Bundle passedPackage = getIntent().getExtras();
 
         //assign user passed from budget display page
-        if(passedUser != null) {
+        if(passedPackage != null) {
             if (getIntent().getSerializableExtra(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY) != null) {
                 loggedInUser = (User) getIntent().getSerializableExtra(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY);
+            }
+            else {
+                tempExpenseWithPhotoData = (tempExpense) getIntent().getSerializableExtra(CameraX.Tag.TAG_EXPENSE_DATA_WITH_PHOTO);
+                loggedInUser = databaseAccessor.grabUserUsingID(tempExpenseWithPhotoData.associatedUserID).get(0);
+
+                expenseAmountField.setText(tempExpenseWithPhotoData.amountFieldValue);
+                categoryField.setSelection(tempExpenseWithPhotoData.categoryIndex);
+                filepathDisplay.setText("Image Captured");
+                notesField.setText(tempExpenseWithPhotoData.expenseNotes);
+                containsPhoto = true;
             }
         }
         captureImageButton.setOnClickListener(this);
         submitExpenseButton.setOnClickListener(this);
     }
-
-    /*@Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {  //check for saved activity state - fills the fields with the values from previous activity if user opens camera
-            super.onRestoreInstanceState(savedInstanceState);
-
-            String savedExpenseAmount = savedInstanceState.getString(KEY_EXPENSEAMOUNT);
-            expenseAmountField.setText(savedExpenseAmount);
-
-            int savedCategoryPosition = savedInstanceState.getInt(KEY_CATEGORY);
-            categoryField.setSelection(savedCategoryPosition);
-
-            String savedNotes = savedInstanceState.getString(KEY_NOTES);
-            notesField.setText(savedNotes);
-
-            User savedUser = (User) savedInstanceState.getSerializable(KEY_LOGGEDINUSER);
-            loggedInUser = savedUser;
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) { //supposed to save the values that were in the text edit fields when the user navigates to the camera
-        super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putString(KEY_EXPENSEAMOUNT, expenseAmountField.getText().toString());
-        savedInstanceState.putInt(KEY_CATEGORY, categoryField.getSelectedItemPosition());
-        savedInstanceState.putString(KEY_NOTES, notesField.getText().toString());
-        savedInstanceState.putSerializable(KEY_LOGGEDINUSER, loggedInUser);
-    }*/
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -143,8 +126,6 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
                 String notes = notesField.getText().toString();
                 String category = categoryField.getSelectedItem().toString();
                 OffsetDateTime currentTimestamp = OffsetDateTime.now(ZoneId.systemDefault());
-                String receiptImageFilepath = null;
-                //MAKE SURE VARIABLE FOR IMAGE FILEPATH HERE IS CORRECT TYPE
 
                 if (expenseAmountString.isEmpty() || expenseAmountString == null || category.equals("Choose an expense category")) {
 
@@ -155,11 +136,13 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
 
                     Toast.makeText(AddExpenseActivity.this, getResources().getString(R.string.expense_creation_success), Toast.LENGTH_LONG).show();
 
-                    if (receiptImageFilepath == null) {
+                    if (!containsPhoto) {
                         Expense newExpense = new Expense(loggedInUser.getUserID(), currentTimestamp, expenseAmount, category, null, notes);
                         databaseAccessor.insertExpense(newExpense);
                     }
                     else {
+                        String receiptImageFilepath = tempExpenseWithPhotoData.receiptImageFilepath;
+
                         Expense newExpense = new Expense(loggedInUser.getUserID(), currentTimestamp, expenseAmount, category, receiptImageFilepath, notes);
                         databaseAccessor.insertExpense(newExpense);
                     }
@@ -171,7 +154,13 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
             }
             case R.id.capture_image_button:
             {
-                goToCameraX(v);
+                String expenseAmountString = expenseAmountField.getText().toString();
+                int categoryIndex = categoryField.getSelectedItemPosition();
+                String notes = notesField.getText().toString();
+
+                tempExpense unfinishedExpenseRecord = new tempExpense(loggedInUser.getUserID(), expenseAmountString, categoryIndex, notes);
+
+                goToCameraX(v, unfinishedExpenseRecord);
                 break;
             }
         }
@@ -186,8 +175,9 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
         startActivity(setupBudgetDisplayPage);
     }
 
-    public void goToCameraX (View view){
+    public void goToCameraX (View view, tempExpense unfinishedExpenseRecord){
         Intent intent = new Intent(AddExpenseActivity.this, CameraX.class);
+        intent.putExtra(TAG_UNFINISHED_EXPENSE, unfinishedExpenseRecord);
         startActivity(intent);
     }
 }

@@ -12,7 +12,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     private Button conTinue;
 
     //Tag and var to be passed on to next activity
-    public static final String TAG_USER_TUTORIAL1 = "user from tutorial page1";
+    public static final String TAG_USER_TUTORIAL = "user from tutorial page1";
     private User validUser;
 
     @Override
@@ -34,15 +34,15 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         validUser = (User) getIntent().getExtras().getSerializable(AccountSetupPageOne.TAG_USER_SETUP1);
 
         //Launch new activity
-        launchSecondTutorialPage(validUser);
+        launchSecondAccountPage(validUser);
     }
 
-    private void launchSecondTutorialPage(User validUser) {
-        Intent setupSecondTutorialPage = new Intent(TutorialActivity.this, TutorialActivity2.class);
+    private void launchSecondAccountPage(User validUser) {
+        Intent setupSecondAccountPage = new Intent(TutorialActivity.this, AccountSetupPageTwo.class);
         //setupBudgetDisplayPage.putExtra("valid_user", validUser);
-        setupSecondTutorialPage.putExtra(TAG_USER_TUTORIAL1,validUser);
+        setupSecondAccountPage.putExtra(TAG_USER_TUTORIAL,validUser);
         //Launch second page of account setup
-        startActivity(setupSecondTutorialPage);
+        startActivity(setupSecondAccountPage);
     }
 
 }
