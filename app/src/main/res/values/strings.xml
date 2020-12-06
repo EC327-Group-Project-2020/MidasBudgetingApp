@@ -126,5 +126,9 @@
     <string name="budget_update_notification">Your budget has been updated!</string>
     <string name="currency_removed_notification">Currency removed from favorites!</string>
     <string name="expense_section">Your tracked expenses:</string>
+    <string name="expense_deleted">Expense deleted</string>
+    <string name="expense_updated">Expense updated!</string>
+    <string name="update_button_prompt">Update Expense</string>
+    <string name="empty_image_message">No receipt on record</string>
 
 </resources>

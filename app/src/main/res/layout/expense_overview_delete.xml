@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:id="@+id/expense_field2"
         android:layout_width="343dp"
         android:layout_height="52dp"
@@ -17,10 +16,10 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_border"
+        android:inputType="numberDecimal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_expense_header" />
@@ -43,7 +42,7 @@
         app:layout_constraintBottom_toTopOf="@+id/category_field2"
         app:layout_constraintStart_toStartOf="@+id/category_field2" />
 
-    <TextView
+    <Spinner
         android:id="@+id/category_field2"
         android:layout_width="343dp"
         android:layout_height="52dp"
@@ -53,10 +52,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="16dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
         android:background="@drawable/button_border"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expense_field2" />
@@ -71,7 +68,7 @@
         app:layout_constraintBottom_toTopOf="@+id/notes_field2"
         app:layout_constraintStart_toStartOf="@+id/notes_field2" />
 
-    <TextView
+    <EditText
         android:id="@+id/notes_field2"
         android:layout_width="343dp"
         android:layout_height="156dp"
@@ -97,16 +94,27 @@
         android:id="@+id/delete_button"
         android:layout_width="123dp"
         android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/delete_expense"
         android:textSize="12sp"
         app:backgroundTint="#CA0505"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notes_field2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="123dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/update_button_prompt"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:backgroundTint="@color/gold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/edit_expense_header"
@@ -118,5 +126,33 @@
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notes_field2"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/no_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="220dp"
+        android:textAlignment="center"
+        android:textColor="#8E8D8D"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+     -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

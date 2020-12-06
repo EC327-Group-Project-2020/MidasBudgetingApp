@@ -64,11 +64,15 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
         //get user
         //Wrap in control statements
-        if (getIntent().getSerializableExtra(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY) != null) {
-            loggedInUser= (User) getIntent().getExtras().getSerializable(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY);
-        }
-        else if(getIntent().getSerializableExtra(ExpenseOverview.TAG_USER_EXPENSE_OVERVIEW_PAGE) != null){
-            loggedInUser= (User) getIntent().getExtras().getSerializable(ExpenseOverview.TAG_USER_EXPENSE_OVERVIEW_PAGE);
+
+        Bundle passedUser = getIntent().getExtras();
+
+        if(passedUser != null) {
+            if (getIntent().getSerializableExtra(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY) != null) {
+                loggedInUser = (User) getIntent().getExtras().getSerializable(BudgetDisplayPage.TAG_USER_BUDGET_DISPLAY);
+            } else if (getIntent().getSerializableExtra(ExpenseOverview.TAG_USER_EXPENSE_OVERVIEW_PAGE) != null) {
+                loggedInUser = (User) getIntent().getExtras().getSerializable(ExpenseOverview.TAG_USER_EXPENSE_OVERVIEW_PAGE);
+            }
         }
         else{
             Toast.makeText(ProfileSettingsActivity.this,"User passed was null!", Toast.LENGTH_LONG).show();

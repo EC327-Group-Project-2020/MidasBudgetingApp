@@ -30,6 +30,8 @@ public class dbViewModel extends AndroidViewModel {
 
     public void update(User user) { mRepository.update(user); } //use to update a user
 
+    public void updateExpense(Expense expense) { mRepository.updateExpense(expense); } //use to update an expense record
+
     public void deleteAll() { mRepository.deleteAll(); } //use to wipe user database
 
     public List<User> grabUser(String username) { //runs on main thread, so only used on login page where query is minimal. IF TIME PERMITS, MAY SWAP USERNAME AND PASS OUT OF DB AND ERASE THIS METHOD
