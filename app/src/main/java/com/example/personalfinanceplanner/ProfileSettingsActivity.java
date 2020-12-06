@@ -79,7 +79,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         updateBudget = (Button) findViewById(R.id.updateButton);
         updateBudget.setOnClickListener(this);
         inputBudget = (EditText) findViewById(R.id.newBudget);
-        budget = inputBudget.getText().toString();
 
 
 
@@ -157,6 +156,8 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v){
 
+        budget = inputBudget.getText().toString();
+
         if(emptyBudget(budget)){
             Toast.makeText(ProfileSettingsActivity.this,getResources().getString(R.string.budget_val_invalid), Toast.LENGTH_LONG).show();
             return;
@@ -190,7 +191,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     //function to check budget input
     public static Boolean emptyBudget(String input){
-        if(input.equals("")){
+        if(input.isEmpty()){
             return true;
         }
         return false;

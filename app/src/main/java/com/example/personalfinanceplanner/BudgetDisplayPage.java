@@ -3,6 +3,7 @@ package com.example.personalfinanceplanner;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.util.StringUtil;
+
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -30,9 +33,15 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -55,6 +64,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     private User loggedInUser;
     private ArrayList<String> storedCurrencies = new ArrayList<>();
     private String userName;
+    private String newUser_Username; //for retrieving user info for newly created users
 
     //declare dbViewModel for interaction with Database
     private dbViewModel databaseAccessor;
@@ -80,10 +90,18 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
     //declare welcome header text view
     private TextView welcomeHeader;
     private TextView breakdownHeader;
+    private TextView totalExpensesCurrencyLabel;
+    private TextView expensePerDayCurrencyLabel;
 
     //variable to store current currency rate and current currency name
     private Double currencyRate;
     private String currencyName;
+
+    //color scheme for pie chart
+    public static final int[] pieColors = {Color.rgb(243, 66, 53), Color.rgb(155, 38, 175), Color.rgb(0, 187, 211),
+            Color.rgb(232, 29, 98), Color.rgb(102, 57, 182), Color.rgb(0, 149, 135), Color.rgb(62, 80, 180), Color.rgb(32, 149, 242),
+            Color.rgb(75, 174, 79), Color.rgb(254, 234, 58), Color.rgb(254, 192, 6), Color.rgb(138, 194, 73), Color.rgb(120, 84, 71),
+            Color.rgb(157, 157, 157), Color.rgb(95, 124, 138)};
 
     //declare pie chart
     PieChart pieChart;
@@ -122,7 +140,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                 loggedInUser = (User) getIntent().getSerializableExtra(ProfileSettingsActivity.TAG_USER_PROFILE_PAGE);
             }
             else {
-                loggedInUser = (User) getIntent().getSerializableExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
+                newUser_Username = getIntent().getStringExtra(AccountSetupPageTwo.TAG_USER_SETUP2);
+
+                loggedInUser = databaseAccessor.grabUser(newUser_Username).get(0);
                 }
 
             //get currency list and name of user
@@ -145,8 +165,14 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         //breakdown header
         breakdownHeader = (TextView) findViewById(R.id.monthHeader);
         String dynamicMonthText = "Your " + OffsetDateTime.now(ZoneId.systemDefault()).getMonth().toString().substring(0,1) +
-                OffsetDateTime.now(ZoneId.systemDefault()).getMonth().toString().substring(1).toLowerCase() + " Breakdown";
+                OffsetDateTime.now(ZoneId.systemDefault()).getMonth().toString().substring(1).toLowerCase() + " Overview";
         breakdownHeader.setText(dynamicMonthText);
+
+        //graph labels
+        totalExpensesCurrencyLabel = (TextView) findViewById(R.id.currencyLabelGraph1);
+        totalExpensesCurrencyLabel.setText("USD");
+        expensePerDayCurrencyLabel = (TextView) findViewById(R.id.currencyLabel2);
+        expensePerDayCurrencyLabel.setText("USD");
 
         //<--------------EXPENSE GRAPHING----------------------->
 
@@ -228,6 +254,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
         yAxisRight.setDrawGridLinesBehindData(false);
         yAxisLeft.setDrawGridLinesBehindData(false);
         yAxisLeft.setAxisMinimum(0);
+        yAxisLeft.setSpaceTop(10);
         xAxis.setAxisLineColor(Color.parseColor("#434343"));
         yAxisLeft.setAxisLineColor(Color.parseColor("#434343"));
         xAxis.setAxisLineWidth(2f);
@@ -420,7 +447,7 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                     case "Personal Care":
                         personalCare += (float) expenseRecord.getAmount();
                         break;
-                    case "Health and Fitness":
+                    case "Health & Fitness":
                         healthAndFitness += (float) expenseRecord.getAmount();
                         break;
                     case "Kids":
@@ -495,26 +522,32 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
         //compile in data set
         PieDataSet pieSet = new PieDataSet(pieEntries, null);
-        pieSet.setSliceSpace(5f);
+        pieSet.setSliceSpace(3f);
         pieSet.setSelectionShift(5f);
-        pieSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieSet.setColors(pieColors);
 
         PieData pieData = new PieData(pieSet);
-        pieData.setValueTextSize(14f);
+        pieData.setValueTextSize(13f);
         pieData.setValueTextColor(Color.WHITE);
+        pieData.setValueFormatter(new PercentFormatter(pieChart));
 
-        pieChart.setData(pieData);
+        if (runningExpenseSumPerDay[currentDayInMonth-1] != 0)
+            pieChart.setData(pieData);
+        pieChart.setNoDataText("No expenses to show - add one to start!");
+        pieChart.setNoDataTextColor(Color.LTGRAY);
+        pieChart.getPaint(Chart.PAINT_INFO).setTextSize(Utils.convertDpToPixel(17f));
         pieChart.invalidate(); // refresh
 
-        pieChart.setDrawEntryLabels(true);
-        pieChart.setEntryLabelColor(Color.GRAY);
+        pieChart.setDrawEntryLabels(false);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setUsePercentValues(true);
         pieChart.setExtraOffsets(5, 5, 5, 5);
         pieChart.setDescription(null);
         Legend pieLegend = pieChart.getLegend();
-        pieLegend.setEnabled(false);
+        pieLegend.setEnabled(true);
+        pieLegend.setTextSize(14f);
+        pieLegend.setWordWrapEnabled(true);
 
         //<--------------GETTING DATABASE STUFF ENDS HERE-------------->
 
@@ -600,6 +633,9 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                     expensesPerDayLineChart.invalidate();
                     totalExpensesOverTimeChart.invalidate();
 
+                    //adjust axis labels
+                    totalExpensesCurrencyLabel.setText("USD");
+
                 }
                 else{
                     Log.d(TAG_DEBUG, "namesRatesArray size: " + namesRates.size());
@@ -626,6 +662,10 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
                     totalExpensesOverTimeChart.notifyDataSetChanged();
                     expensesPerDayLineChart.invalidate();
                     totalExpensesOverTimeChart.invalidate();
+
+                    //adjust axis labels
+                    totalExpensesCurrencyLabel.setText(translationCurrency);
+                    expensePerDayCurrencyLabel.setText(translationCurrency);
                 }
             }
 

@@ -24,7 +24,9 @@ public class dbViewModel extends AndroidViewModel {
 
     public void insertExpense(Expense expense) { mRepository.insertExpense(expense); }
 
-    public void delete(User user) { mRepository.delete(user); } //use to delete a user
+    public void deleteUser(User user) { mRepository.deleteUser(user); } //use to delete a user
+
+    public void deleteExpense(Expense expense) { mRepository.deleteExpense(expense); }
 
     public void update(User user) { mRepository.update(user); } //use to update a user
 
@@ -32,6 +34,10 @@ public class dbViewModel extends AndroidViewModel {
 
     public List<User> grabUser(String username) { //runs on main thread, so only used on login page where query is minimal. IF TIME PERMITS, MAY SWAP USERNAME AND PASS OUT OF DB AND ERASE THIS METHOD
         return mRepository.queryUser(username);
+    }
+
+    public List<User> grabUserUsingID(long userID) { //runs on main thread, so only used on login page where query is minimal. IF TIME PERMITS, MAY SWAP USERNAME AND PASS OUT OF DB AND ERASE THIS METHOD
+        return mRepository.queryUserUsingID(userID);
     }
 
     public LiveData<List<User>> grabUserLive(String username) { //search the database for the given user

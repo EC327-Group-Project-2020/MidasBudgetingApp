@@ -7,6 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
@@ -17,28 +18,28 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Expense implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private long expenseID;
+    protected long expenseID;
 
     @ColumnInfo(name = "associated_userID")
-    private long associatedUserID;
+    protected long associatedUserID;
 
     @TypeConverters(Converters.class)
     @NonNull
     @ColumnInfo(name = "expense_timestamp") //includes timezone
-    private OffsetDateTime timestamp;
+    protected OffsetDateTime timestamp;
 
     @ColumnInfo(name = "amount")
-    private double amount;
+    protected double amount;
 
     @NonNull
     @ColumnInfo(name = "category")
-    private String category;
+    protected String category;
 
     @ColumnInfo(name = "receiptImageFilepath")
-    private String receiptImageFilepath;
+    protected String receiptImageFilepath;
 
     @ColumnInfo(name = "expenseNotes")
-    private String expenseNotes;
+    protected String expenseNotes;
 
     //constructor (use null as the argument for receiptImageFilepath or expenseNotes if not provided)
     public Expense(long associatedUserID, OffsetDateTime timestamp, double amount, String category, String receiptImageFilepath, String expenseNotes) {
