@@ -77,6 +77,12 @@
     <string name="submit_expense">Submit Expense</string>
     <string name="create_expense_header"><u>Create Expense</u></string>
 
+    <!--Review/ delete expense Page -->
+    <string name="edit_expense_header"><u>Expense Overview</u></string>
+    <string name="delete_expense">Delete Expense</string>
+
+
+
     <string-array name="expense_categories">
         <item>Choose an expense category</item>
         <item>Entertainment</item>
@@ -110,7 +116,7 @@
     <string name="next_page">Continue</string>
     <string name="continue_tutorial">Get Started</string>
 
-    <!-- tutorial page strings-->
+    <!-- Settings page strings-->
     <string name="profile_settings_header">Profile Settings</string>
     <string name="update_budget">Update Monthly Budget</string>
     <string name="update_budget_prompt">New budget (USD)</string>
@@ -119,5 +125,6 @@
     <string name="remove_currencies">Remove selected currency from favorites:</string>
     <string name="budget_update_notification">Your budget has been updated!</string>
     <string name="currency_removed_notification">Currency removed from favorites!</string>
+    <string name="expense_section">Your tracked expenses:</string>
 
 </resources>

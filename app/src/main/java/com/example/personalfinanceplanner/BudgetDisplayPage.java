@@ -702,8 +702,6 @@ public class BudgetDisplayPage extends AppCompatActivity implements View.OnClick
 
 
     private void launchExpenseCreationActivity(User user){
-
-
             Intent setupExpenseCreation = new Intent(BudgetDisplayPage.this, AddExpenseActivity.class);
             setupExpenseCreation.putExtra(TAG_USER_BUDGET_DISPLAY, user);
 

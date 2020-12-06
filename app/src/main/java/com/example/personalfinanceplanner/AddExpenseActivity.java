@@ -7,6 +7,9 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -180,4 +183,27 @@ public class AddExpenseActivity extends AppCompatActivity implements View.OnClic
         intent.putExtra(TAG_UNFINISHED_EXPENSE, unfinishedExpenseRecord);
         startActivity(intent);
     }
+
+    ///toolbar with back to budget display btn:
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.miBack:
+                launchBudgetDisplayPage(loggedInUser);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
 }
