@@ -25,6 +25,9 @@ public interface UserDAO {
     @Update
     void updateUser(User user); //for updating User in the database
 
+    @Update
+    void updateExpense(Expense expense);
+
     @Delete
     void deleteUser(User user); //for deleting a User from the database, if needed; uses the primary keys of the entities passed as parameters to search database
 

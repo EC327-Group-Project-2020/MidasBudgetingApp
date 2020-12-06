@@ -40,6 +40,12 @@ public class dbRepository {
             });
         }
 
+        void updateExpense(Expense expense) {
+            AppDatabase.databaseWriteExecutor.execute(() -> {
+                mUserDao.updateExpense(expense);
+            });
+        }
+
         void deleteUser(User user) {
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 mUserDao.deleteUser(user);
