@@ -120,16 +120,16 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         allExpenses = new ArrayList<String>();
 
         //pull out data into array, note: date index should be 0, amount should be 1 and category should be 2
-        for(int i = 0; i < userExpenses.size(); i++){
+        for(int i = 0, j = userExpenses.size()-1; i < userExpenses.size(); i++, j--){
             String currentExpense;
-            String rawDate = userExpenses.get(i).getTimestamp().toString();
+            String rawDate = userExpenses.get(j).getTimestamp().toString();
             String date = rawDate.substring(0,10);
             currentExpense = date + ":   ";
             String amountLayout = "-";
-            String amount = String.valueOf(userExpenses.get(i).getAmount());
+            String amount = String.valueOf(userExpenses.get(j).getAmount());
             amountLayout = amountLayout + amount + " $";
             currentExpense = currentExpense + amountLayout + " (";
-            String category = userExpenses.get(i).getCategory();
+            String category = userExpenses.get(j).getCategory();
             currentExpense = currentExpense + category + ")";
             allExpenses.add(i,currentExpense);
         }
@@ -142,7 +142,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //find correct expense
-                chosenExpense = userExpenses.get(position);
+                chosenExpense = userExpenses.get((userExpenses.size()-1)-position);
                 Intent expenseOverview= new Intent(ProfileSettingsActivity.this, ExpenseOverview.class);
                 expenseOverview.putExtra(TAG_EXPENSE_PROFILE_PAGE, chosenExpense);
                 expenseOverview.putExtra(TAG_USER_PROFILE_PAGE, loggedInUser);
