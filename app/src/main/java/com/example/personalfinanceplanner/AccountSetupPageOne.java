@@ -108,7 +108,7 @@ public class AccountSetupPageOne extends AppCompatActivity implements View.OnCli
         Intent launchTutorialPage = new Intent(AccountSetupPageOne.this, TutorialActivity.class);
 
         //username passed on to continue initialisation of user
-        launchTutorialPage.putExtra(TAG_USER_SETUP1,createdUser);
+        launchTutorialPage.putExtra(TAG_USER_SETUP1,user);
 
         //Launch second page of account setup
         startActivity(launchTutorialPage);
