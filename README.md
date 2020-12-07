@@ -10,40 +10,10 @@ The app should have the following core functionality:
 - a way to add expenses, by category, including uploading receipts using the Android phone's camera. 
 
 The app may also have additional functionality as time permits:
-- user uploaded exchange rate and currency selection
-- searchable financial literacy database (included with app, not cloud-based)
-- image processing and AI to automatically interpret transactional data from receipt photos
-- live API connections and summary of financial accounts, including transactions and balances (e.g. Plaid API)
-
-Task Specifications and Grading
-
-Your project will be graded equally on the following three criteria:
-
-1. Front-end
-The user-interface for the project must be:
-• crisp and intuitive (i.e., no instruction manual required), providing appropriate and understandable
-feedback,
-• robust to all sorts of behavior, normal or otherwise, meaning your project should neither crash nor
-leave strange elements on the screen,
-• visually pleasant, properly utilizing icons, backdrops, and graphical-user artifacts.
-
-2. Back-end
-The back-end code should be:
-• efficient; it does not have to be optimal, but the user should not suffer a negative experience (e.g.,
-long wait times, dropped information, etc.),
-• robust to all manner of input from the user interface; i.e., the back-end should never crash or lock
-in an infinite loop,
-• secure (at a basic level), in that there should not be reasonably obvious ways to get the back-end to
-do something malicious,
-• well-documented (e.g., commented) and easy to understand by programmers with your level of
-expertise.
-
-3. Marketability
-The basic question you should ask yourself is: “Would people use the project?”
-• You should specify who might want to use the project, and for what purposes.
-• It should be clear how the design decisions in the project conform to potential users of the project.
-• Your project should include a concise and clear description targeted toward potential users.
-• You should stay away from licensed or copyrighted content (e.g., pictures, games). 
+- user uploaded exchange rate and currency selection (success!! even built API update so no manual entry necessary)
+- searchable financial literacy database (opted for tutorial instead, no need to rewrite the internet)
+- image processing and AI to automatically interpret transactional data from receipt photos (Darren attempted this using Google ML Kit but found it too complex, so dropped the idea in week 2 after research and attempts)
+- live API connections and summary of financial accounts, including transactions and balances (e.g. Plaid API) -- obviously beyond the scope of this course and none of us want to really front cash or personal identity to set up a real API to real financial institutions, not to mention the test bank accounts you would need to set up. 
 
 # Instructions on how to set up the app
 
