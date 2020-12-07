@@ -47,7 +47,7 @@ The basic question you should ask yourself is: “Would people use the project?�
 
 # Instructions on how to set up the app
 
-• All necessary code, build specifications and libraries are included in the .zip file submitted, so opening it and running in android studio should be enough.
+• All necessary code, build specifications and libraries are included in the .zip file submitted, so opening it and running in android studio should be enough.\ 
 • Just incase something is not right, our github repository is public so please feel free to clone it and open with the Get From Version Control feature.
 
 
