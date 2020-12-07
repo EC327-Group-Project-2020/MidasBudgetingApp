@@ -45,4 +45,4 @@ The basic question you should ask yourself is: “Would people use the project?�
 • Your project should include a concise and clear description targeted toward potential users.
 • You should stay away from licensed or copyrighted content (e.g., pictures, games). 
 
-# Instruction on how to set up the app
+# Instructions on how to set up the app
