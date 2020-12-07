@@ -1,4 +1,4 @@
-# PersonalFinancePlanner
+# MidasBudgetingApp
 
 The goal of this project is to design and build an app that will allow users to sign in, create a budget, 
 track and categorize expenses, and upload receipts for specific transactions using the Android phone's camera. 
